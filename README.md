@@ -101,3 +101,9 @@ That branch contains the original `index.html`, `style.css`, and `script.js` as 
 - Email: mahitech580@gmail.com
 - GitHub: https://github.com/mahitech580
 - LinkedIn: https://www.linkedin.com/in/mahendra-sai-kondaveeti-93438b279/
+
+
+## Visual background attribution
+
+- Abstract blue and yellow fluid gradient by Universtock via [Unsplash](https://unsplash.com/photos/abstract-blue-and-yellow-fluid-gradient-background-bM38iNtaf-s).
+- Used as a softly color-graded atmospheric background under the [Unsplash License](https://unsplash.com/license); the portrait asset remains the local image specified by the site owner.

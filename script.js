@@ -120,6 +120,8 @@
     const scrollY = window.scrollY || 0;
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     if (progressBar) progressBar.style.width = (scrollable > 0 ? scrollY / scrollable * 100 : 0) + "%";
+    document.documentElement.style.setProperty("--scroll-drift", -Math.min(scrollY * 0.075, 100) + "px");
+    document.documentElement.style.setProperty("--scroll-progress", String(scrollable > 0 ? scrollY / scrollable : 0));
     header?.classList.toggle("is-scrolled", scrollY > 18);
 
     let activeId = "home";
@@ -579,6 +581,23 @@
       // The standard image preview is the intentional no-WebGL fallback.
       liquidShowcase.classList.remove("webgl-ready");
     });
+  }
+
+  // Pointer light gently tracks the visitor; this is RAF-throttled and disabled for reduced-motion users.
+  if (!reducedMotion && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    let pointerFrame = 0;
+    let latestPointer = null;
+    window.addEventListener("pointermove", event => {
+      latestPointer = { x: event.clientX, y: event.clientY };
+      if (pointerFrame) return;
+      pointerFrame = window.requestAnimationFrame(() => {
+        if (latestPointer) {
+          document.documentElement.style.setProperty("--pointer-x", latestPointer.x + "px");
+          document.documentElement.style.setProperty("--pointer-y", latestPointer.y + "px");
+        }
+        pointerFrame = 0;
+      });
+    }, { passive: true });
   }
 
   // Current year, and a tiny progressive enhancement marker for the loaded page.

@@ -141,10 +141,17 @@ test("image-first project atlas includes six projects and preserves the requeste
   assert.ok(js.includes('const galleryCards = $$(".project-gallery-card")'), "gallery interactions must bind to the full card collection");
 });
 
-test("visual direction stays monochrome and project cover assets match their domains", () => {
+test("prismatic art direction includes colorful image backgrounds and scroll-pointer motion", () => {
   const lightTheme = css.slice(css.indexOf(":root {"), css.indexOf('html[data-theme="dark"]'));
-  assert.ok(lightTheme.includes("--accent: #101111"), "light theme should use an ink accent instead of neon cyan");
-  assert.ok(css.includes("/* ECHO-informed art direction"), "editorial refinement block should be present");
+  assert.ok(lightTheme.includes("--accent: #5f3ee8"), "light theme should use a saturated violet accent");
+  assert.ok(lightTheme.includes("--accent-strong: #5b35d5"), "strong accent should keep readable contrast");
+  assert.ok(css.includes("MAHI / PRISM AURORA INTERACTION LAYER"), "visual refinement block should be present");
+  assert.ok(css.includes("images.unsplash.com/photo-1770954036350-b0307353f5d6"), "fluid abstract background image should be present");
+  assert.ok(css.includes("background-image: radial-gradient"), "atmospheric color layers should be present");
+  assert.ok(css.includes("@keyframes auroraFloat") && css.includes("@keyframes spectrumFlow"), "ambient and headline animations should exist");
+  assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
+  assert.ok(js.includes('style.setProperty("--pointer-x"') && js.includes('style.setProperty("--pointer-y"'), "pointer lighting should follow the visitor");
+  assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"), "motion preferences must be honored");
   assert.ok(html.includes("cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png"));
   assert.ok(html.includes("cdn.dribbble.com/userupload/46846817/file/0b9f85b7b940bdbd3ea2661952772384.png"));
   assert.ok(html.includes("orbixhub.com/assets/images/platform-dashboard.jpg"));
