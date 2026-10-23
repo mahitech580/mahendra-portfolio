@@ -441,6 +441,7 @@
       const loadTexture = path => {
         const ticket = ++imageRequest;
         const image = new Image();
+        image.crossOrigin = "anonymous";
         image.onload = () => {
           if (ticket !== imageRequest) return;
           texture.image = image;
@@ -451,7 +452,7 @@
         image.src = path;
       };
       changeLiquidImage = loadTexture;
-      loadTexture(liquidFallback?.getAttribute("src") || "img/1.jpg");
+      loadTexture(liquidFallback?.getAttribute("src") || "https://cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png");
       resizeRenderer();
       const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(resizeRenderer) : null;
       resizeObserver?.observe(liquidShowcase);
