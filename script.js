@@ -302,8 +302,12 @@
   }, { passive: true });
   const finishWheelDrag = event => {
     if (dragStartX === null || (event && event.pointerId !== dragPointerId)) return;
-    const didDrag = Math.abs(dragDeltaX) > 28;
-    if (didDrag) selectWheelItem(selectedIndex - Math.round(dragDeltaX / 95));
+    // Use the release coordinate as a final source of truth in case a browser
+    // suppresses one or more pointermove events during an image/card drag.
+    const finalDelta = event && Number.isFinite(event.clientX) ? event.clientX - dragStartX : dragDeltaX;
+    dragDeltaX = finalDelta;
+    const didDrag = Math.abs(finalDelta) > 28;
+    if (didDrag) selectWheelItem(selectedIndex - Math.round(finalDelta / 95));
     wheelViewport?.classList.remove("is-dragging");
     dragStartX = null;
     dragPointerId = null;

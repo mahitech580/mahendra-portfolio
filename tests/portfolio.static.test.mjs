@@ -162,6 +162,12 @@ test("contact form keeps its configured endpoint and required fields", () => {
   }
 });
 
+test("3D wheel drag cannot be intercepted by native image dragging", () => {
+  assert.ok(css.includes(".wheel-card img, .project-gallery-card img"), "project images should have a non-draggable interaction style");
+  assert.ok(css.includes("pointer-events: none;"), "project imagery should not intercept pointer handling");
+  assert.ok(js.includes("const finalDelta = event && Number.isFinite(event.clientX)"), "wheel release should reconcile drag from the pointer-up coordinate");
+});
+
 test("reduced-motion and no-JavaScript recovery remain available", () => {
   assert.ok(html.includes('window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 2400)'));
   assert.ok(css.includes("html:not(.js) .preloader { display: none; }"));

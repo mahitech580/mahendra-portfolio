@@ -572,6 +572,12 @@ html:not(.js) .preloader { display: none; }
 @media (prefers-reduced-motion:reduce){.project-gallery-card,.project-gallery-media img,.project-gallery-arrow{transition:none!important;transform:none!important}.project-gallery-card{will-change:auto}}
 
 
+/* Project cards are controls, not draggable image elements. Prevent the browser's native image-drag ghost. */
+.wheel-card img, .project-gallery-card img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
 /* ECHO-informed art direction: ink, paper, spacious type, restrained motion */
 ::selection { background: var(--accent); color: var(--accent-ink); }
 .icon-button:hover,
