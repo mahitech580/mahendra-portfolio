@@ -42,8 +42,8 @@ const normalized = value => value.replaceAll("&amp;", "&");
 const cards = [...html.matchAll(/<button class="wheel-card\b[^"]*"[^>]*>[\s\S]*?<\/button>/g)].map(match => match[0]);
 
 test("the remote-image initializer queries a collection, not a single element", () => {
-  assert.match(js, /(^|\\n)\\s*\\$\\$\\("img"\\)\\.forEach\\(/);
-  assert.doesNotMatch(js, /(^|\\n)\\s*\\$\\("img"\\)\\.forEach\\(/);
+  assert.ok(js.includes('  $("img").forEach(image => {'), "image initialization must use the collection selector");
+  assert.ok(!js.includes('  $("img").forEach(image => {'), "single-element selector cannot be iterated");
 });
 
 test("application JavaScript parses without syntax errors", () => {
