@@ -118,6 +118,18 @@ test("mobile theme and navigation controls remain usable and labelled", async ({
   expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport);
 });
 
+test("image atlas opens the matching project modal and repository link", async ({ page }) => {
+  const gallery = page.locator("#projectGallery");
+  await expect(gallery.locator(".project-gallery-card")).toHaveCount(6);
+  await gallery.getByRole("button", { name: "Open NodeAI Studio project details" }).click();
+  await expect(page.locator("#projectModal")).toHaveClass(/is-open/);
+  await expect(page.locator("#modalTitle")).toHaveText("NodeAI Studio");
+  await expect(page.locator("#modalLinks a")).toHaveCount(1);
+  await expect(page.locator("#modalLinks a").first()).toHaveAttribute("href", "https://github.com/mahitech580/NodeAI-Studio");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#projectModal")).not.toHaveClass(/is-open/);
+});
+
 test("reduced-motion preference keeps essential content visible", async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();

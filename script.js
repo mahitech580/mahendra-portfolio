@@ -14,14 +14,14 @@
   const markImageFallback = image => {
     image.classList.add("image-unavailable");
     [image.closest(".wheel-card"), image.closest(".expand-frame"),
-      image.closest(".liquid-showcase"), image.closest(".portrait-wrap")]
+      image.closest(".liquid-showcase"), image.closest(".portrait-wrap"), image.closest(".project-gallery-card")]
       .filter(Boolean)
       .forEach(container => container.classList.add("image-failed"));
   };
   const clearImageFallback = image => {
     image.classList.remove("image-unavailable");
     [image.closest(".wheel-card"), image.closest(".expand-frame"),
-      image.closest(".liquid-showcase"), image.closest(".portrait-wrap")]
+      image.closest(".liquid-showcase"), image.closest(".portrait-wrap"), image.closest(".project-gallery-card")]
       .filter(Boolean)
       .forEach(container => {
         if (!container.querySelector("img.image-unavailable")) container.classList.remove("image-failed");
@@ -322,6 +322,31 @@
   window.addEventListener("pointerup", finishWheelDrag);
   window.addEventListener("pointercancel", finishWheelDrag);
   updateWheelRadius();
+
+  // Map the visual case files to the same source of truth as the 3D wheel.
+  const galleryCards = $(".project-gallery-card");
+  galleryCards.forEach(card => {
+    card.addEventListener("click", () => {
+      const index = Number.parseInt(card.dataset.projectIndex, 10);
+      if (Number.isInteger(index) && index >= 0 && index < wheelCards.length) selectWheelItem(index, true);
+    });
+  });
+  if (galleryCards.length && !reducedMotion && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    galleryCards.forEach(card => {
+      card.addEventListener("pointermove", event => {
+        const rect = card.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = clamp((event.clientX - rect.left) / rect.width);
+        const y = clamp((event.clientY - rect.top) / rect.height);
+        card.style.setProperty("--tilt-x", ((x - .5) * 2.8).toFixed(2) + "deg");
+        card.style.setProperty("--tilt-y", ((.5 - y) * 2.8).toFixed(2) + "deg");
+      }, { passive: true });
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+      });
+    });
+  }
 
   // Project modal uses the same project metadata as the wheel so details stay in sync.
   const projectModal = $("#projectModal");

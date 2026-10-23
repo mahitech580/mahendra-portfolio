@@ -15,9 +15,10 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 - **Scroll-expanding media frame** that grows as the visitor moves through the showcase.
 - **Horizontal, pinned journey timeline** on desktop, with a readable stacked layout on smaller screens.
 - **Interactive 3D project wheel** with mouse/touch drag, previous/next controls, keyboard support and selected-project details.
+- **Image-first project atlas** with six asymmetrical editorial cards, curated online visuals, subtle hover depth, responsive layouts and one-click links into the matching project detail modal.
 - **Project inspection modal** with live/source links, focus handling and Escape-to-close behavior.
 - **Optional OGL/WebGL liquid preview** with a normal-image fallback if the module cannot load or WebGL is unavailable.
-- **Online project cover imagery** selected by project theme; covers are illustrative references, not claims that third-party screenshots are the exact deployed application.
+- **Online project cover imagery and a new six-card visual atlas** selected by project domain; these are illustrative third-party references, not screenshots of Mahi's actual deployments. The only personal portrait is the specified file in `img/Professional Portrait in a Modern Office.png`.
 - **Responsive capability cards, technology chips, education, certifications and internship highlights.**
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
@@ -27,12 +28,12 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 
 The six project cards use online cover visuals for atmosphere and category context. They are not presented as screenshots captured from Mahi's actual deployments.
 
-- **Healthcare workspace cover:** [Dribbble — Healthcare Analytics Dashboard](https://dribbble.com/shots/27228685-Healthcare-Analytics-Dashboard-Patient-Monitoring-System)
-- **Travel planning cover:** [Dribbble — AI Trip Planner Dashboard](https://dribbble.com/shots/26442798--Product-design-for-the-AI-Trip-Planner-Hyperactive)
-- **Deepfake analysis cover:** [EchoDefence — Deepfake Detection Technology](https://echodefence.com/insights/deepfake-detection-technology/)
-- **AI coding assistant cover:** [Virtualization How-To — Amazon Kiro AI IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
-- **Crop-yield cover:** [Unsplash-hosted agricultural landscape image](https://images.unsplash.com/photo-1500382017468-9049fed747ef)
-- **Voice AI cover:** [FairStack — AI Voice Clone](https://fairstack.ai/tools/voice-clone)
+- **Healthcare operations cover:** [AgileDigest — Healthcare Operations](https://agiledigest.com/industries/healthcare)
+- **Travel planning cover:** [AI Travelfika — AI Insights for Philippine Travel](https://ai.travelfika.com/blogs/ai-insights-for-philippine-travel)
+- **Deepfake-analysis cover:** [Deepfake Detection dashboard visual](https://deepfakedetection.site/)
+- **AI coding-workspace cover:** [Virtualization How-To — Amazon Kiro AI IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
+- **Crop-yield cover:** [B-AGRO — Precision Agriculture](https://b-agro.az/)
+- **Voice AI cover:** [Vivago — AI voice waveform visual](https://vivago.ai/effects/video/55494ec7-3c31-46e0-b4cb-464091b9e83b)
 
 ## Tech
 

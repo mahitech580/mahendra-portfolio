@@ -129,6 +129,17 @@ test("small text and keyboard focus on dark sections remain readable", () => {
   assert.ok(css.includes(".journey-section :focus-visible,") && css.includes(".work-section :focus-visible,") && css.includes(".contact-section :focus-visible { outline-color: var(--accent); }"), "dark sections need a high-contrast focus ring");
 });
 
+test("image-first project atlas includes six projects and preserves the requested portrait", () => {
+  const gallery = [...html.matchAll(/<button class="project-gallery-card\b[^"]*"[^>]*data-project-index="(\d+)"[^>]*>[\s\S]*?<\/button>/g)];
+  assert.equal(gallery.length, 6, "expected six visual case-file cards");
+  assert.deepEqual(gallery.map(match => Number(match[1])), [0, 1, 2, 3, 4, 5]);
+  for (const name of ["AVERIS", "TripPilot", "Deepfake Detection", "NodeAI Studio", "Crop Yield Prediction", "VoxGenAI"]) {
+    assert.ok(gallery.some(match => match[0].includes(name)), "missing gallery project " + name);
+  }
+  assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "requested personal portrait must remain unchanged");
+  assert.ok(js.includes('image.closest(".project-gallery-card")'), "gallery image failures need recovery");
+});
+
 test("contact form keeps its configured endpoint and required fields", () => {
   const form = html.match(/<form class="contact-form\b[^"]*"[^>]*>[\s\S]*?<\/form>/)?.[0];
   assert.ok(form, "contact form missing");
