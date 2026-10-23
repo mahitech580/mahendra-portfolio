@@ -49,6 +49,9 @@ figure, p, h1, h2, h3, pre { margin: 0; }
 button { cursor: pointer; }
 ::selection { background: var(--accent); color: #0b1716; }
 :focus-visible { outline: 2px solid var(--accent-strong, #00a9a3); outline-offset: 4px; }
+.journey-section :focus-visible,
+.work-section :focus-visible,
+.contact-section :focus-visible { outline-color: var(--accent); }
 .mono { font-family: var(--mono); letter-spacing: .055em; font-size: .69rem; }
 .section-shell { width: var(--shell); max-width: 1440px; margin-inline: auto; }
 .section-pad { padding-block: clamp(76px, 10vw, 154px); }
@@ -249,7 +252,7 @@ html:not(.js) .preloader { display: none; }
 .journey-panel { flex: 0 0 100vw; height: 100%; padding: 35px max(4.5vw, calc((100% - 1440px)/2)); display: flex; flex-direction: column; justify-content: space-between; border-top: 1px solid var(--line-inverse); border-bottom: 1px solid var(--line-inverse); position: relative; overflow: hidden; }
 .panel-one { background: #161918; }.panel-two { background: #1b1e1d; }.panel-three { background: #121615; }
 .journey-panel:after { content: ""; position: absolute; width: 48vw; height: 48vw; border: 1px solid rgba(255,255,255,.08); border-radius: 50%; right: -8vw; top: -8vw; box-shadow: 0 0 0 45px rgba(255,255,255,.02), 0 0 0 90px rgba(255,255,255,.02); pointer-events: none; }
-.journey-panel-top, .journey-panel-foot { display: flex; justify-content: space-between; gap: 20px; color: #7c8580; font-size: .61rem; z-index: 1; }
+.journey-panel-top, .journey-panel-foot { display: flex; justify-content: space-between; gap: 20px; color: #8f9691; font-size: .61rem; z-index: 1; }
 .journey-panel-main { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4vw; max-width: 1300px; width: 100%; margin-inline: auto; position: relative; z-index: 1; }
 .journey-big-number { font: 500 clamp(9rem,23vw,25rem)/.7 var(--display); color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); letter-spacing: -.11em; }
 .journey-panel-copy { max-width: 560px; }
@@ -272,7 +275,7 @@ html:not(.js) .preloader { display: none; }
 .work-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; position: relative; z-index: 4; }
 .work-count { display: flex; gap: 9px; align-items: center; color: #808882; font-size: .62rem; }
 .work-count span:first-child { color: var(--accent); font-size: .9rem; }
-.work-count .slash { color: #454a46; }
+.work-count .slash { color: #8f9691; }
 .wheel-buttons { display: flex; gap: 8px; }
 .work-section .icon-button { color: var(--paper); border-color: rgba(255,255,255,.25); }
 .work-section .icon-button:hover { color: #071a19; border-color: var(--accent); }
@@ -290,7 +293,7 @@ html:not(.js) .preloader { display: none; }
 .wheel-card-meta b { color: var(--accent); font: 1.1rem var(--sans); }
 .wheel-card > strong { font: 500 1.55rem/1.05 var(--display); letter-spacing: -.05em; margin-top: 12px; }
 .wheel-card-sub { margin-top: 5px; color: #8f9690; font-size: .66rem; }
-.wheel-hint { color: #727a74; display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line-inverse); padding-top: 14px; font-size: .56rem; }
+.wheel-hint { color: #8f9691; display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line-inverse); padding-top: 14px; font-size: .56rem; }
 .project-detail-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(30px,5vw,80px); align-items: stretch; padding-top: clamp(60px,8vw,110px); border-top: 1px solid var(--line-inverse); margin-top: 30px; }
 .project-detail-copy { padding-block: 10px; }
 .project-detail-copy > .mono { color: var(--accent); font-size: .59rem; }
@@ -355,7 +358,7 @@ html:not(.js) .preloader { display: none; }
 .contact-form label > span { display: inline; color: #7f8780; font-weight: 400; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .contact-form input, .contact-form textarea { width: 100%; min-width: 0; border: 1px solid rgba(255,255,255,.22); border-radius: 0; background: rgba(255,255,255,.035); color: #f7f7f1; padding: 13px 14px; outline: none; font-size: .78rem; transition: border .2s, background .2s; }
-.contact-form input::placeholder, .contact-form textarea::placeholder { color: #777f79; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8b938d; }
 .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); background: rgba(18,217,208,.045); }
 .contact-form textarea { resize: vertical; min-height: 130px; }
 .submit-button { align-self: flex-start; border: 0; margin-top: 1px; }

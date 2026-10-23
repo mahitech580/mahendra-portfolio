@@ -114,6 +114,16 @@ test("normal-size muted and accent text meet WCAG AA contrast on light theme", (
   assert.ok(contrastRatio(accentStrong, paper2) >= 4.5, "strong accent lacks 4.5:1 contrast on paper-2");
 });
 
+test("small text and keyboard focus on dark sections remain readable", () => {
+  const timelineColor = css.match(/\.journey-panel-top, \.journey-panel-foot \{[^}]*color:\s*(#[0-9a-fA-F]{6})/)?.[1];
+  const wheelHintColor = css.match(/\.wheel-hint \{[^}]*color:\s*(#[0-9a-fA-F]{6})/)?.[1];
+  const placeholderColor = css.match(/\.contact-form input::placeholder, \.contact-form textarea::placeholder \{[^}]*color:\s*(#[0-9a-fA-F]{6})/)?.[1];
+  assert.ok(timelineColor && contrastRatio(timelineColor, "#1b1e1d") >= 4.5, "timeline labels need 4.5:1 contrast");
+  assert.ok(wheelHintColor && contrastRatio(wheelHintColor, "#111313") >= 4.5, "wheel instructions need 4.5:1 contrast");
+  assert.ok(placeholderColor && contrastRatio(placeholderColor, "#161918") >= 4.5, "form placeholders need 4.5:1 contrast");
+  assert.ok(css.includes(".journey-section :focus-visible,\\n.work-section :focus-visible,\\n.contact-section :focus-visible { outline-color: var(--accent); }"), "dark sections need a high-contrast focus ring");
+});
+
 test("contact form keeps its configured endpoint and required fields", () => {
   const form = html.match(/<form class="contact-form\b[^"]*"[^>]*>[\s\S]*?<\/form>/)?.[0];
   assert.ok(form, "contact form missing");
