@@ -51,7 +51,7 @@ test("desktop hero gradient is text-clipped and portrait is brought into the fir
   const portraitBox = await portrait.boundingBox();
   expect(portraitBox).not.toBeNull();
   expect(portraitBox.y).toBeLessThan(785);
-  expect(portraitBox.y + portraitBox.height).toBeGreaterThan(785);
+  expect(portraitBox.y + portraitBox.height).toBeLessThanOrEqual(785);
 });
 
 test("project next, card click, modal links and Escape all work", async ({ page }) => {
