@@ -22,6 +22,18 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
 
+
+## Illustrative cover-image sources
+
+The six project cards use online cover visuals for atmosphere and category context. They are not presented as screenshots captured from Mahi's actual deployments.
+
+- **Healthcare workspace cover:** [Dribbble — Healthcare Analytics Dashboard](https://dribbble.com/shots/27228685-Healthcare-Analytics-Dashboard-Patient-Monitoring-System)
+- **Travel planning cover:** [Dribbble — AI Trip Planner Dashboard](https://dribbble.com/shots/26442798--Product-design-for-the-AI-Trip-Planner-Hyperactive)
+- **Deepfake analysis cover:** [EchoDefence — Deepfake Detection Technology](https://echodefence.com/insights/deepfake-detection-technology/)
+- **AI coding assistant cover:** [Virtualization How-To — Amazon Kiro AI IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
+- **Crop-yield cover:** [Unsplash-hosted agricultural landscape image](https://images.unsplash.com/photo-1500382017468-9049fed747ef)
+- **Voice AI cover:** [FairStack — AI Voice Clone](https://fairstack.ai/tools/voice-clone)
+
 ## Tech
 
 - Semantic HTML5
