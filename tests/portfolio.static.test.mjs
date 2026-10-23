@@ -138,7 +138,7 @@ test("image-first project atlas includes six projects and preserves the requeste
   }
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "requested personal portrait must remain unchanged");
   assert.ok(js.includes('image.closest(".project-gallery-card")'), "gallery image failures need recovery");
-  assert.ok(js.includes('const galleryCards = $(".project-gallery-card")'), "gallery interactions must bind to the full card collection");
+  assert.ok(js.includes('const galleryCards = $$(".project-gallery-card")'), "gallery interactions must bind to the full card collection");
 });
 
 test("contact form keeps its configured endpoint and required fields", () => {
