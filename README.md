@@ -45,7 +45,16 @@ The six project cards use online cover visuals for atmosphere and category conte
 
 ## Run locally
 
-From the repository root, serve the folder using any local HTTP server:
+Install the development test dependency and run the checks:
+
+```bash
+npm install
+npm run test:static
+npx playwright install chromium
+npm run test:e2e
+```
+
+For local browsing, serve the root folder:
 
 ```bash
 python -m http.server 8080
@@ -53,13 +62,25 @@ python -m http.server 8080
 
 Then open http://localhost:8080. A local server is needed for consistent module and asset behavior; opening `index.html` directly as a file may restrict browser modules.
 
+## Quality checks
+
+GitHub Actions runs static source checks and Chromium browser tests on pushes to `main` and pull requests. Tests cover local asset references, HTML anchors, individual project repositories, image/preview matching, theme contrast, mobile navigation, project-wheel clicks and keyboard controls, modal links, image-fallback behavior, and contact-form wiring.
+
+The portfolio remains a static GitHub Pages site; Node.js and Playwright are development-only test tools and are not needed by visitors.
+
 ## Main files
 
 ```text
 mahendra-portfolio/
+├── .github/workflows/portfolio-checks.yml
 ├── index.html
 ├── style.css
 ├── script.js
+├── package.json
+├── playwright.config.mjs
+├── tests/
+│   ├── portfolio.static.test.mjs
+│   └── e2e/portfolio.spec.mjs
 ├── img/
 │   └── Professional Portrait in a Modern Office.png  # personal portrait only
 └── files/

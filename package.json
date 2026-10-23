@@ -1,0 +1,13 @@
+{
+  "name": "mahendra-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:static": "node --test tests/portfolio.static.test.mjs",
+    "test:e2e": "playwright test",
+    "test": "npm run test:static && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}

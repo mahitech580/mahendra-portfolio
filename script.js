@@ -9,6 +9,30 @@
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Remote image hosts can rate-limit or remove files. Preserve the layout and
+  // display intentional visual fallbacks; successful replacement images restore it.
+  const markImageFallback = image => {
+    image.classList.add("image-unavailable");
+    [image.closest(".wheel-card"), image.closest(".expand-frame"),
+      image.closest(".liquid-showcase"), image.closest(".portrait-wrap")]
+      .filter(Boolean)
+      .forEach(container => container.classList.add("image-failed"));
+  };
+  const clearImageFallback = image => {
+    image.classList.remove("image-unavailable");
+    [image.closest(".wheel-card"), image.closest(".expand-frame"),
+      image.closest(".liquid-showcase"), image.closest(".portrait-wrap")]
+      .filter(Boolean)
+      .forEach(container => {
+        if (!container.querySelector("img.image-unavailable")) container.classList.remove("image-failed");
+      });
+  };
+  $("img").forEach(image => {
+    image.addEventListener("error", () => markImageFallback(image));
+    image.addEventListener("load", () => clearImageFallback(image));
+    if (image.complete && image.naturalWidth === 0 && image.currentSrc) markImageFallback(image);
+  });
+
   const preloader = $("#preloader");
   window.addEventListener("load", () => {
     window.setTimeout(() => preloader?.classList.add("is-done"), reducedMotion ? 0 : 780);
@@ -65,6 +89,7 @@
     mainNav?.classList.remove("is-open");
     menuToggle?.setAttribute("aria-expanded", "false");
     if (menuToggle) menuToggle.innerHTML = '<i class="bx bx-menu"></i>';
+    menuToggle?.setAttribute("aria-label", "Open navigation");
   };
   menuToggle?.addEventListener("click", () => {
     const willOpen = !mainNav?.classList.contains("is-open");
@@ -191,6 +216,7 @@
   const openDetailButton = $("#openProjectDetail");
   let selectedIndex = 0;
   let dragStartX = null;
+  let dragTarget = null;
   let dragDeltaX = 0;
   let wasDragging = false;
 
@@ -257,7 +283,10 @@
     dragDeltaX = 0;
     wasDragging = false;
     wheelViewport.classList.add("is-dragging");
-    wheelViewport.setPointerCapture?.(event.pointerId);
+    // Capture on the pressed card instead of the viewport so pointerup keeps
+    // the card as the click target and its details can open normally.
+    dragTarget = event.target.closest?.(".wheel-card") || wheelViewport;
+    try { dragTarget.setPointerCapture?.(event.pointerId); } catch { /* Pointer may already be released. */ }
   });
   wheelViewport?.addEventListener("pointermove", event => {
     if (dragStartX === null) return;
@@ -269,6 +298,7 @@
     if (Math.abs(dragDeltaX) > 28) selectWheelItem(selectedIndex - Math.round(dragDeltaX / 95));
     wheelViewport?.classList.remove("is-dragging");
     dragStartX = null;
+    dragTarget = null;
     if (wasDragging) window.setTimeout(() => { wasDragging = false; }, 0);
   };
   wheelViewport?.addEventListener("pointerup", finishWheelDrag);
@@ -302,14 +332,18 @@
       modalLinks.replaceChildren();
       const links = [
         { url: card.dataset.live, label: "Open live project", icon: "bx-up-right-arrow-alt" },
-        { url: card.dataset.source, label: "View source / profile", icon: "bxl-github" }
+        { url: card.dataset.source, label: "View repository source", icon: "bxl-github" }
       ].filter(link => link.url && /^https:\/\//.test(link.url));
       links.forEach(link => {
         const a = document.createElement("a");
         a.href = link.url;
         a.target = "_blank";
-        a.rel = "noreferrer";
-        a.innerHTML = link.label + ' <i class="bx ' + link.icon + '"></i>';
+        a.rel = "noopener noreferrer";
+        a.textContent = link.label;
+        const icon = document.createElement("i");
+        icon.className = "bx " + link.icon;
+        icon.setAttribute("aria-hidden", "true");
+        a.append(icon);
         modalLinks.append(a);
       });
       if (!links.length) {

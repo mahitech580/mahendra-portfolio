@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="js">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,14 +7,28 @@
   <meta name="description" content="Mahi — Computer Science graduate building useful software across Python, AI/ML, backend systems, and interactive web experiences.">
   <meta name="author" content="Mahi (Mahendra Sai Kondaveeti)">
   <title>Mahi — Software Engineer & AI Builder</title>
+  <link rel="canonical" href="https://mahitech580.github.io/mahendra-portfolio/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mahi / Dev">
+  <meta property="og:title" content="Mahi — Software Engineer &amp; AI Builder">
+  <meta property="og:description" content="A portfolio of software engineering, AI/ML, backend systems and interactive web projects by Mahendra Sai Kondaveeti.">
+  <meta property="og:url" content="https://mahitech580.github.io/mahendra-portfolio/">
+  <meta property="og:image" content="https://mahitech580.github.io/mahendra-portfolio/img/Professional%20Portrait%20in%20a%20Modern%20Office.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mahi — Software Engineer &amp; AI Builder">
+  <meta name="twitter:description" content="Software engineering, AI/ML, backend systems and interactive web projects.">
+  <meta name="twitter:image" content="https://mahitech580.github.io/mahendra-portfolio/img/Professional%20Portrait%20in%20a%20Modern%20Office.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script>document.documentElement.classList.add('js');</script>
-  <script src="mixitup.min.js" defer></script>
+  <script>
+    document.documentElement.classList.add("js");
+    // Keep the page usable even if the deferred application script fails to load.
+    window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 2400);
+  </script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -134,7 +148,7 @@
       <div class="expand-pin">
         <div class="expand-copy mono"><span>SCROLL-DRIVEN VISUAL</span><span>MAKE ROOM FOR THE WORK ↓</span></div>
         <div class="expand-frame" id="expandFrame">
-          <img src="https://echodefence.com/images/deepfake-detection-analysis.png" alt="Project interface preview from Mahi's portfolio" loading="lazy">
+          <img src="https://echodefence.com/images/deepfake-detection-analysis.png" alt="Illustrative deepfake-detection analysis visual" loading="lazy" decoding="async">
           <div class="expand-overlay"></div>
           <div class="expand-frame-top mono"><span>MAHI / DIGITAL WORKS</span><span>FIG. 01</span></div>
           <div class="expand-frame-bottom"><span>Build something<br><em>worth exploring.</em></span><a href="#work" aria-label="Explore selected work">↘</a></div>
@@ -196,7 +210,7 @@
         <p class="reveal">Rotate the work wheel, choose a project, and open a closer look. Use arrows, drag, or the keyboard. Cover visuals are illustrative online references; project links lead to code or live demos where available.</p>
       </div>
       <div class="work-controls reveal">
-        <div class="mono work-count"><span id="workIndex">01</span><span class="slash">/</span><span>06</span></div>
+        <div class="mono work-count"><span id="workIndex" aria-live="polite" aria-atomic="true">01</span><span class="slash">/</span><span>06</span></div>
         <div class="wheel-buttons"><button class="icon-button wheel-prev" id="wheelPrev" type="button" aria-label="Previous project"><i class="bx bx-left-arrow-alt"></i></button><button class="icon-button wheel-next" id="wheelNext" type="button" aria-label="Next project"><i class="bx bx-right-arrow-alt"></i></button></div>
       </div>
       <div class="wheel-viewport reveal" id="wheelViewport" tabindex="0" aria-label="Interactive 3D project wheel. Use left and right arrows to rotate.">
@@ -207,16 +221,16 @@
           <button class="wheel-card" data-index="1" data-title="TripPilot" data-category="Travel · Web application" data-description="A responsive travel planner bringing destination discovery, itinerary planning and visual exploration into one browsing experience." data-stack="JavaScript · Responsive UI · Maps" data-live="https://mahitech580.github.io/TripPilot-Travel-Planner/" data-source="https://github.com/mahitech580/TripPilot-Travel-Planner">
             <span class="wheel-card-index mono">PROJECT / 02</span><img src="https://cdn.dribbble.com/userupload/44641534/file/d66a4242c32025659b55244604ede120.png?resize=%7Bwidth%7Dx%7Bheight%7D&amp;vertical=center" alt="" loading="lazy"><span class="wheel-card-meta mono"><span>TRAVEL EXPERIENCE</span><b>↗</b></span><strong>TripPilot</strong><span class="wheel-card-sub">Travel planning made visual</span>
           </button>
-          <button class="wheel-card" data-index="2" data-title="Deepfake Video Detection" data-category="Computer vision · AI/ML" data-description="A computer-vision project exploring manipulated-video detection and model-assisted media analysis." data-stack="Python · Deep Learning · OpenCV" data-live="https://mahitech580.github.io/deepfake-video-detection/" data-source="https://github.com/mahitech580">
+          <button class="wheel-card" data-index="2" data-title="Deepfake Video Detection" data-category="Computer vision · AI/ML" data-description="A computer-vision project exploring manipulated-video detection and model-assisted media analysis." data-stack="Python · Deep Learning · OpenCV" data-live="https://mahitech580.github.io/deepfake-video-detection/" data-source="https://github.com/mahitech580/deepfake-video-detection">
             <span class="wheel-card-index mono">PROJECT / 03</span><img src="https://echodefence.com/images/deepfake-detection-analysis.png" alt="" loading="lazy"><span class="wheel-card-meta mono"><span>COMPUTER VISION</span><b>↗</b></span><strong>Deepfake Detection</strong><span class="wheel-card-sub">Investigating media authenticity</span>
           </button>
           <button class="wheel-card" data-index="3" data-title="NodeAI Studio" data-category="AI tools · Developer experience" data-description="An AI-focused developer workspace concept featuring chat, code generation, debugging and SQL assistance in one interface." data-stack="JavaScript · Python APIs · AI workflows" data-live="" data-source="https://github.com/mahitech580/NodeAI-Studio">
             <span class="wheel-card-index mono">PROJECT / 04</span><img src="https://www.virtualizationhowto.com/wp-content/uploads/2025/07/Amazon-Kiro-IDE-with-AI-capabilities-1.png" alt="" loading="lazy"><span class="wheel-card-meta mono"><span>DEVELOPER TOOLING</span><b>↗</b></span><strong>NodeAI Studio</strong><span class="wheel-card-sub">An AI workspace for builders</span>
           </button>
-          <button class="wheel-card" data-index="4" data-title="Crop Yield Prediction" data-category="Applied ML · Agriculture" data-description="A machine-learning application concept combining crop-yield prediction with a simple web workflow for presenting recommendations and results." data-stack="Python · Flask · SQLite · ML" data-live="https://crop-yield-predictor-pius.onrender.com" data-source="https://github.com/mahitech580">
+          <button class="wheel-card" data-index="4" data-title="Crop Yield Prediction" data-category="Applied ML · Agriculture" data-description="A machine-learning application concept combining crop-yield prediction with a simple web workflow for presenting recommendations and results." data-stack="Python · Flask · SQLite · ML" data-live="https://crop-yield-predictor-pius.onrender.com" data-source="https://github.com/mahitech580/crop-yield-predictor">
             <span class="wheel-card-index mono">PROJECT / 05</span><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&amp;q=80" alt="" loading="lazy"><span class="wheel-card-meta mono"><span>APPLIED MACHINE LEARNING</span><b>↗</b></span><strong>Crop Yield AI</strong><span class="wheel-card-sub">Predictions for a real-world domain</span>
           </button>
-          <button class="wheel-card" data-index="5" data-title="VoxGenAI" data-category="Generative AI · Voice" data-description="An AI exploration around voice and generative workflows, designed around practical interaction rather than a static chat mock-up." data-stack="Python · AI · GenAI concepts" data-live="" data-source="https://github.com/mahitech580">
+          <button class="wheel-card" data-index="5" data-title="VoxGenAI" data-category="Generative AI · Voice" data-description="An AI exploration around voice and generative workflows, designed around practical interaction rather than a static chat mock-up." data-stack="Python · AI · GenAI concepts" data-live="" data-source="https://github.com/mahitech580/VoxGen-AI">
             <span class="wheel-card-index mono">PROJECT / 06</span><img src="https://staging.media.fairstack.ai/image/8f9d83db-5c6f-4904-a967-6f4b93cf6f6b/81be99f4-25ba-4a1c-896d-0ff4d209deb4.png" alt="" loading="lazy"><span class="wheel-card-meta mono"><span>VOICE + GENERATIVE AI</span><b>↗</b></span><strong>VoxGenAI</strong><span class="wheel-card-sub">Exploring new ways to interact</span>
           </button>
         </div>
@@ -224,9 +238,9 @@
       <div class="wheel-hint mono reveal"><span>↔ DRAG TO ROTATE</span><span>CLICK A CARD TO INSPECT</span><span>USE ← → KEYS</span></div>
 
       <div class="project-detail-grid reveal">
-        <div class="project-detail-copy"><span class="mono">A CLOSER LOOK</span><h3 id="selectedProjectTitle">AVERIS</h3><p id="selectedProjectDescription">A simulated healthcare-operations workspace with multiple workspaces, command search and operational workflows.</p><div class="project-stack" id="selectedProjectStack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><button class="text-link detail-open" id="openProjectDetail" type="button">Open project details <span>↗</span></button></div>
+        <div class="project-detail-copy"><span class="mono">A CLOSER LOOK</span><h3 id="selectedProjectTitle" aria-live="polite" aria-atomic="true">AVERIS</h3><p id="selectedProjectDescription" aria-live="polite" aria-atomic="true">A simulated healthcare-operations workspace with multiple workspaces, command search and operational workflows.</p><div class="project-stack" id="selectedProjectStack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><button class="text-link detail-open" id="openProjectDetail" type="button">Open project details <span>↗</span></button></div>
         <div class="liquid-showcase" id="liquidShowcase">
-          <canvas id="liquidCanvas" aria-label="Interactive liquid image preview" role="img"></canvas>
+          <canvas id="liquidCanvas" aria-hidden="true"></canvas>
           <img id="liquidFallback" src="https://cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png" alt="Selected project preview" loading="lazy">
           <div class="liquid-showcase-shade"></div>
           <div class="liquid-showcase-top mono"><span>LIVE VISUAL / WEBGL WHEN AVAILABLE</span><span class="live-dot"></span></div>
