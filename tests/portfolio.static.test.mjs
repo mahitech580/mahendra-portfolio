@@ -107,6 +107,14 @@ test("theme and menu controls remain accessible on small screens", () => {
   assert.ok(js.includes('menuToggle.setAttribute("aria-label", willOpen ? "Close navigation" : "Open navigation")'));
 });
 
+test("hero composition fits the viewport and keeps the animated word clipped to text", () => {
+  assert.ok(css.includes(".hero-layout {\n  min-height: clamp(500px, calc(100svh - var(--header-height) - 145px), 590px);"), "desktop hero should not force a 650px content minimum");
+  assert.ok(css.includes(".hero-visual {\n  min-height: clamp(430px, calc(100svh - var(--header-height) - 240px), 520px);"), "visual column should use a viewport-aware height");
+  assert.ok(css.includes(".hero .title-metal {\n  display: inline-block;"), "gradient span should shrink to the headline word");
+  assert.ok(css.includes("background-image: linear-gradient(100deg, #fffaff 0%, #d5c8ff 31%, #ffacd0 61%, #91f3f2 91%);"), "animate the image property so clipping stays explicit");
+  assert.ok(css.includes("-webkit-text-fill-color: transparent;") && css.includes("-webkit-background-clip: text;"), "gradient must paint glyphs only");
+});
+
 test("hero gradient is clipped to text rather than painting a rectangular block", () => {
   const lastRule = css.lastIndexOf(".hero .title-metal {");
   assert.notEqual(lastRule, -1, "hero gradient override must exist");

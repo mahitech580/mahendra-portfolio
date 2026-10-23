@@ -32,6 +32,28 @@ test("core page, portrait, resume and form load", async ({ page }) => {
   expect(pageErrors).toEqual([]);
 });
 
+test("desktop hero gradient is text-clipped and portrait is brought into the first viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 1648, height: 785 });
+  const title = page.locator(".hero .title-metal");
+  const portrait = page.locator(".hero-portrait");
+  await expect(title).toBeVisible();
+  await expect(portrait).toBeVisible();
+  const titleStyles = await title.evaluate(el => ({
+    clip: getComputedStyle(el).backgroundClip,
+    webkitClip: getComputedStyle(el).webkitBackgroundClip,
+    fill: getComputedStyle(el).webkitTextFillColor,
+    width: el.getBoundingClientRect().width
+  }));
+  expect(titleStyles.clip).toBe("text");
+  expect(titleStyles.webkitClip).toBe("text");
+  expect(titleStyles.fill).toContain("0");
+  expect(titleStyles.width).toBeLessThan(640);
+  const portraitBox = await portrait.boundingBox();
+  expect(portraitBox).not.toBeNull();
+  expect(portraitBox.y).toBeLessThan(785);
+  expect(portraitBox.y + portraitBox.height).toBeGreaterThan(785);
+});
+
 test("project next, card click, modal links and Escape all work", async ({ page }) => {
   await page.locator("#wheelNext").click();
   await expect(page.locator("#workIndex")).toHaveText("02");
