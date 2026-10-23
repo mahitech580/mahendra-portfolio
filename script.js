@@ -27,7 +27,7 @@
         if (!container.querySelector("img.image-unavailable")) container.classList.remove("image-failed");
       });
   };
-  $("img").forEach(image => {
+  $$("img").forEach(image => {
     image.addEventListener("error", () => markImageFallback(image));
     image.addEventListener("load", () => clearImageFallback(image));
     if (image.complete && image.naturalWidth === 0 && image.currentSrc) markImageFallback(image);
