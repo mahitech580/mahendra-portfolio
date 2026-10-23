@@ -160,7 +160,7 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
 });
 
 test("gallery filter buttons are initialized as a collection and do not break page startup", () => {
-  assert.ok(js.includes('const galleryFilters = $(".gallery-filter")'), "all filter buttons must be collected");
+  assert.ok(js.includes('const galleryFilters = $$(".gallery-filter")'), "all filter buttons must be collected");
   assert.ok(!js.includes('const galleryFilters = $(".gallery-filter")'), "a single filter element cannot support forEach");
 });
 
