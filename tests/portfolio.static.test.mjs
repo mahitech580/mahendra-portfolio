@@ -107,6 +107,18 @@ test("theme and menu controls remain accessible on small screens", () => {
   assert.ok(js.includes('menuToggle.setAttribute("aria-label", willOpen ? "Close navigation" : "Open navigation")'));
 });
 
+test("hero gradient is clipped to text rather than painting a rectangular block", () => {
+  const lastRule = css.lastIndexOf(".hero .title-metal {");
+  assert.notEqual(lastRule, -1, "hero gradient override must exist");
+  const open = css.indexOf("{", lastRule);
+  const close = css.indexOf("}", open);
+  const block = css.slice(open + 1, close);
+  assert.ok(block.includes("-webkit-background-clip: text"), "WebKit text clipping must be reapplied after the background shorthand");
+  assert.ok(block.includes("background-clip: text"), "gradient must be clipped to the title glyphs");
+  assert.ok(block.includes("-webkit-text-fill-color: transparent"), "glyph fill must remain transparent for the gradient");
+  assert.ok(!block.includes("background-clip: border-box"), "hero title must not paint a rectangular background");
+});
+
 test("normal-size muted and accent text meet WCAG AA contrast on light theme", () => {
   const light = cssBlock(":root");
   const paper = cssVar(light, "paper");

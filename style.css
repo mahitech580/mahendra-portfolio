@@ -1089,3 +1089,14 @@ html[data-theme="dark"] #education {
 @media (max-width: 760px) {
   .project-gallery-card:hover, .project-gallery-card:focus-visible { transform: none; }
 }
+
+
+/* Fix: the animated title's background shorthand reset background-clip to border-box.
+   Re-apply text clipping after the animated gradient so only the glyphs are painted. */
+.hero .title-metal {
+  display: inline;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
