@@ -115,26 +115,15 @@ test("hero composition fits the viewport and keeps the animated word clipped to 
   assert.ok(css.includes("-webkit-text-fill-color: transparent;") && css.includes("-webkit-background-clip: text;"), "gradient must paint glyphs only");
 });
 
-test("hero gradient is clipped to text rather than painting a rectangular block", () => {
-  const marker = ".hero .title-metal {";
-  const starts = [];
-  let cursor = 0;
-  while ((cursor = css.indexOf(marker, cursor)) !== -1) {
-    starts.push(cursor);
-    cursor += marker.length;
-  }
-  const rules = starts.map(index => {
-    const open = css.indexOf("{", index);
-    const close = css.indexOf("}", open);
-    return css.slice(open + 1, close);
-  });
-  const block = rules.find(rule => rule.includes("-webkit-background-clip: text") && rule.includes("background-clip: text") && rule.includes("-webkit-text-fill-color: transparent"));
-  assert.ok(block, "a hero gradient rule must clip the gradient to text glyphs");
-  assert.ok(block.includes("-webkit-background-clip: text"), "WebKit text clipping must be reapplied after the background shorthand");
-  assert.ok(block.includes("background-clip: text"), "gradient must be clipped to the title glyphs");
-  assert.ok(block.includes("-webkit-text-fill-color: transparent"), "glyph fill must remain transparent for the gradient");
-  assert.ok(!block.includes("background-clip: border-box"), "hero title must not paint a rectangular background");
+test("hero headline cannot paint a rectangular gradient and portrait sizing is viewport-aware", () => {
+  const titleOverride = css.slice(css.lastIndexOf("/* HERO COMPOSITION FIX"), css.length);
+  assert.ok(titleOverride.includes("background: none !important;"), "headline word must not paint a rectangular background");
+  assert.ok(titleOverride.includes("-webkit-text-fill-color: #ffb3d5 !important;"), "headline word should use a visible solid accent fill");
+  assert.ok(titleOverride.includes("width: max-content;"), "accent word should fit its text, not the column");
+  assert.ok(titleOverride.includes("height: clamp(350px, calc(100svh - var(--header-height) - 375px), 440px);"), "portrait region must adapt to the viewport");
+  assert.ok(titleOverride.includes(".hero-layout {\n  min-height: 0;"), "hero content must not be pushed by a forced large minimum height");
 });
+
 
 test("normal-size muted and accent text meet WCAG AA contrast on light theme", () => {
   const light = cssBlock(":root");

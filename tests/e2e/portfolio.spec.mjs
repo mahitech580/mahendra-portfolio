@@ -32,27 +32,30 @@ test("core page, portrait, resume and form load", async ({ page }) => {
   expect(pageErrors).toEqual([]);
 });
 
-test("desktop hero gradient is text-clipped and portrait is brought into the first viewport", async ({ page }) => {
+test("desktop hero title, intro, and portrait stay within the first viewport", async ({ page }) => {
   await page.setViewportSize({ width: 1648, height: 785 });
   const title = page.locator(".hero .title-metal");
   const portrait = page.locator(".hero-portrait");
   await expect(title).toBeVisible();
   await expect(portrait).toBeVisible();
-  const titleStyles = await title.evaluate(el => ({
-    clip: getComputedStyle(el).backgroundClip,
-    webkitClip: getComputedStyle(el).webkitBackgroundClip,
+  const styles = await title.evaluate(el => ({
+    backgroundImage: getComputedStyle(el).backgroundImage,
     fill: getComputedStyle(el).webkitTextFillColor,
     width: el.getBoundingClientRect().width
   }));
-  expect(titleStyles.clip).toBe("text");
-  expect(titleStyles.webkitClip).toBe("text");
-  expect(titleStyles.fill).toContain("0");
-  expect(titleStyles.width).toBeLessThan(640);
+  expect(styles.backgroundImage).toBe("none");
+  expect(styles.fill).toBe("rgb(255, 179, 213)");
+  expect(styles.width).toBeLessThan(640);
+  const heroBox = await page.locator("#home").boundingBox();
   const portraitBox = await portrait.boundingBox();
+  expect(heroBox).not.toBeNull();
   expect(portraitBox).not.toBeNull();
+  expect(heroBox.y + heroBox.height).toBeLessThanOrEqual(785);
   expect(portraitBox.y).toBeLessThan(785);
   expect(portraitBox.y + portraitBox.height).toBeLessThanOrEqual(785);
+  await expect(page.getByRole("link", { name: /Explore my work/ })).toBeVisible();
 });
+
 
 test("project next, card click, modal links and Escape all work", async ({ page }) => {
   await page.locator("#wheelNext").click();
