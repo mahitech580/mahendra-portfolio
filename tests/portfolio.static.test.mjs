@@ -107,31 +107,28 @@ test("theme and menu controls remain accessible on small screens", () => {
   assert.ok(js.includes('menuToggle.setAttribute("aria-label", willOpen ? "Close navigation" : "Open navigation")'));
 });
 
-test("CSE-focused image backgrounds are present and the personal portrait is not pointer-transformed", () => {
+test("CSE image art direction uses coding, AI/ML and space imagery—not electronics imagery", () => {
   assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2400&q=85'), "coding laptop background should be used");
   assert.ok(css.includes('photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1800&q=85'), "AI/ML imagery should be used in the skills section");
   assert.ok(html.includes('photo-1462331940025-496dfbfc7564?w=1800&amp;q=85'), "space imagery should be used in the scroll showcase");
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "keep the requested personal portrait");
-  const lastPortraitRule = css.slice(css.lastIndexOf("/* Keep the personal portrait anchored."));
-  assert.ok(lastPortraitRule.includes("transform: none !important;"), "the portrait must not translate with pointer movement");
-  assert.ok(!lastPortraitRule.includes("translate3d(var(--pointer-x"), "global pointer coordinates must not reposition the portrait");
+  assert.ok(css.includes('.hero::before') && css.includes('linear-gradient(105deg, rgba(13, 10, 32, .94)'), "hero must retain a dark readable overlay over coding imagery");
+  assert.ok(!/circuit board|electronics engineering|pcb imagery/i.test(css + html), "avoid electronics-focused imagery and language");
 });
 
-test("hero composition fits the viewport and keeps the animated word clipped to text", () => {
-  assert.ok(css.includes(".hero-layout {\n  min-height: clamp(500px, calc(100svh - var(--header-height) - 145px), 590px);"), "desktop hero should not force a 650px content minimum");
-  assert.ok(css.includes(".hero-visual {\n  min-height: clamp(430px, calc(100svh - var(--header-height) - 240px), 520px);"), "visual column should use a viewport-aware height");
-  assert.ok(css.includes(".hero .title-metal {\n  display: inline-block;"), "gradient span should shrink to the headline word");
-  assert.ok(css.includes("background-image: linear-gradient(100deg, #fffaff 0%, #d5c8ff 31%, #ffacd0 61%, #91f3f2 91%);"), "animate the image property so clipping stays explicit");
-  assert.ok(css.includes("-webkit-text-fill-color: transparent;") && css.includes("-webkit-background-clip: text;"), "gradient must paint glyphs only");
+test("hero has one consolidated, viewport-aware composition and solid headline accent", () => {
+  assert.ok(css.includes(".hero-layout { min-height: clamp(485px, calc(100svh - var(--header-height) - 158px), 580px);"), "hero layout should fit the viewport rather than force a tall minimum");
+  assert.ok(css.includes("height: clamp(360px, calc(100svh - var(--header-height) - 330px), 455px);"), "portrait column should use viewport-aware sizing");
+  assert.ok(css.includes(".hero .title-metal {"), "headline accent rule should exist");
+  assert.ok(css.includes("background: none;") && css.includes("background-image: none;"), "headline word must not paint a rectangular gradient");
+  assert.ok(css.includes("-webkit-text-fill-color: #ffb3d5;"), "headline uses a reliable solid accent instead of fragile gradient clipping");
+  assert.ok(!css.includes("HERO COMPOSITION FIX") && !css.includes("Desktop hero corrective pass"), "obsolete appended hero override blocks should be removed");
 });
 
-test("hero headline cannot paint a rectangular gradient and portrait sizing is viewport-aware", () => {
-  const titleOverride = css.slice(css.lastIndexOf("/* HERO COMPOSITION FIX"), css.length);
-  assert.ok(titleOverride.includes("background: none !important;"), "headline word must not paint a rectangular background");
-  assert.ok(titleOverride.includes("-webkit-text-fill-color: #ffb3d5 !important;"), "headline word should use a visible solid accent fill");
-  assert.ok(titleOverride.includes("width: max-content;"), "accent word should fit its text, not the column");
-  assert.ok(titleOverride.includes("height: clamp(350px, calc(100svh - var(--header-height) - 375px), 440px);"), "portrait region must adapt to the viewport");
-  assert.ok(titleOverride.includes(".hero-layout {\n  min-height: 0;"), "hero content must not be pushed by a forced large minimum height");
+test("portrait remains stationary and the hero offers a resume link", () => {
+  assert.ok(css.includes(".hero-portrait {") && css.includes("transform: none !important;"), "portrait base rule must never translate");
+  assert.ok(!css.includes("translate3d(var(--pointer-x"), "global pointer coordinates must not reposition the portrait");
+  assert.ok(html.includes('class="text-link hero-resume"'), "hero should expose a direct resume action");
 });
 
 
@@ -197,7 +194,7 @@ test("gallery filter buttons are initialized as a collection and do not break pa
 test("the personal portrait stays still when the pointer moves", () => {
   assert.ok(!js.includes('heroVisual.style.setProperty("--pointer-x"'), "pointer movement must not translate the personal portrait");
   assert.ok(!js.includes('heroVisual.style.setProperty("--pointer-y"'), "pointer movement must not translate the personal portrait");
-  assert.ok(css.includes(".hero-portrait,\n.hero-visual:hover .hero-portrait {\n  transform: none !important;"), "portrait transforms should be disabled on hover");
+  assert.ok(/\.hero-portrait,\s*\.hero-visual:hover \.hero-portrait\s*\{\s*transform:\s*none !important;/.test(css), "portrait transforms should be disabled on hover");
 });
 
 test("project archive filters and counts are wired to six categorized cards", () => {

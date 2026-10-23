@@ -216,6 +216,20 @@ test("project filters show the matching category and restore all cards", async (
   await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 06 / 06 BUILDS");
 });
 
+test("hero portrait stays anchored and the hero avoids horizontal overflow at key widths", async ({ page }) => {
+  const widths = [320, 375, 390, 768, 1024, 1648];
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: width === 1648 ? 785 : 844 });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const portrait = page.locator(".hero-portrait");
+    await expect(portrait).toBeVisible();
+    await expect.poll(() => portrait.evaluate(image => image.naturalWidth)).toBeGreaterThan(0);
+    const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
+    expect(dimensions.document, "horizontal overflow at viewport " + width).toBeLessThanOrEqual(dimensions.viewport);
+    expect(await portrait.evaluate(image => getComputedStyle(image).transform)).toBe("none");
+  }
+});
+
 test("floating back-to-top control appears on scroll and returns to the hero", async ({ page }) => {
   const control = page.locator("#backToTop");
   await expect(control).toHaveCount(1);

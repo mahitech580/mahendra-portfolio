@@ -7,6 +7,8 @@ Personal portfolio for **Mahendra Sai Kondaveeti (Mahi)**, a 2026 Computer Scien
 
 ## Experience design
 
+The hero styling is consolidated into one responsive section rather than a stack of conflicting overrides. The `software.` accent uses a solid pink fill, so a background gradient can never render as a rectangular block behind the word.
+
 The portfolio uses an independent monochrome editorial system: oversized typography, spacious grids, restrained motion, an interactive 3D work reel, scroll-linked storytelling, and project imagery sourced to match each build's domain. It is an independent implementation inspired by broad interaction patterns in modern creative portfolios—not a copy of another site's source.
 
 - **Orbital preloader** with reduced-motion support.
@@ -108,4 +110,4 @@ That branch contains the original `index.html`, `style.css`, and `script.js` as 
 - **Coding workspace:** Unsplash image CDN, `photo-1498050108023-c5249f4df085`, used as a software-development background under the [Unsplash License](https://unsplash.com/license).
 - **AI / ML atmosphere:** Unsplash image CDN, `photo-1677442136019-21780ecad995`, used to evoke AI and neural-network exploration under the [Unsplash License](https://unsplash.com/license).
 - **Space / nebula showcase:** Unsplash image CDN, `photo-1462331940025-496dfbfc7564`, used for the scroll-driven visual section under the [Unsplash License](https://unsplash.com/license).
-- The personal portrait remains the local image specified by the site owner and does not respond to cursor movement.
+- The personal portrait remains the exact local image specified by the site owner. Pointer movement affects only atmospheric background lighting; the portrait never translates or scales.
