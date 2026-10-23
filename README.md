@@ -17,6 +17,7 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 - **Interactive 3D project wheel** with mouse/touch drag, previous/next controls, keyboard support and selected-project details.
 - **Project inspection modal** with live/source links, focus handling and Escape-to-close behavior.
 - **Optional OGL/WebGL liquid preview** with a normal-image fallback if the module cannot load or WebGL is unavailable.
+- **Online project cover imagery** selected by project theme; covers are illustrative references, not claims that third-party screenshots are the exact deployed application.
 - **Responsive capability cards, technology chips, education, certifications and internship highlights.**
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
@@ -48,9 +49,7 @@ mahendra-portfolio/
 ├── style.css
 ├── script.js
 ├── img/
-│   ├── 1.jpg ... 6.jpg
-│   ├── 630.jpeg
-│   └── profile PNG
+│   └── Professional Portrait in a Modern Office.png  # personal portrait only
 └── files/
     └── Mahendra_Resume_Python__.pdf
 ```
