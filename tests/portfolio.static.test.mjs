@@ -147,7 +147,7 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(lightTheme.includes("--accent-strong: #5b35d5"), "strong accent should keep readable contrast");
   assert.ok(css.includes("MAHI / PRISM AURORA INTERACTION LAYER"), "visual refinement block should be present");
   assert.ok(css.includes("images.unsplash.com/photo-1770954036350-b0307353f5d6"), "fluid abstract background image should be present");
-  assert.ok(css.includes("background-image: radial-gradient"), "atmospheric color layers should be present");
+  assert.ok(/background-image:\s*radial-gradient/.test(css), "atmospheric color layers should be present");
   assert.ok(css.includes("@keyframes auroraFloat") && css.includes("@keyframes spectrumFlow"), "ambient and headline animations should exist");
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
   assert.ok(js.includes('style.setProperty("--pointer-x"') && js.includes('style.setProperty("--pointer-y"'), "pointer lighting should follow the visitor");
