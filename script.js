@@ -372,7 +372,11 @@
     projectModal.classList.add("is-open");
     projectModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-    modalClose?.focus();
+    // Defer focus until the browser finishes the triggering card's default click action.
+    // Otherwise the click can steal focus back from the newly opened dialog.
+    window.requestAnimationFrame(() => {
+      if (projectModal.classList.contains("is-open")) modalClose?.focus();
+    });
   }
   function closeProjectModal() {
     if (!projectModal?.classList.contains("is-open")) return;

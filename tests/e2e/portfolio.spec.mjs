@@ -83,7 +83,11 @@ test("liquid preview selection stays synchronized with project details", async (
 
 test("remote cover failures show designed placeholders", async ({ page }) => {
   const cover = page.locator('#projectWheel .wheel-card[data-index="0"] img');
-  await cover.evaluate(image => { image.src = "/__intentional_missing_cover_test__.png"; });
+  await cover.evaluate(image => new Promise(resolve => {
+    image.addEventListener("error", resolve, { once: true });
+    image.loading = "eager";
+    image.src = "/__intentional_missing_cover_test__.png";
+  }));
   const card = page.locator('#projectWheel .wheel-card[data-index="0"]');
   await expect(card).toHaveClass(/image-failed/);
   await expect(cover).toHaveCSS("visibility", "hidden");
