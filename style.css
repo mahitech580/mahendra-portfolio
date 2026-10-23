@@ -1078,3 +1078,14 @@ html[data-theme="dark"] #education {
   .gallery-filter, .back-to-top-float, .capability-card::before, .education-item, .cert-row { transition: none !important; }
   .education-item:hover { transform: none; }
 }
+
+/* Keep cursor-driven gallery tilt composed with the hover lift, without adding mobile jitter. */
+
+@media (hover: hover) and (pointer: fine) {
+  .project-gallery-card:hover, .project-gallery-card:focus-visible {
+    transform: perspective(1100px) translateY(-7px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+  }
+}
+@media (max-width: 760px) {
+  .project-gallery-card:hover, .project-gallery-card:focus-visible { transform: none; }
+}
