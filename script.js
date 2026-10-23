@@ -219,6 +219,7 @@
   let dragTarget = null;
   let dragDeltaX = 0;
   let wasDragging = false;
+  let suppressNextWheelClick = false;
 
   function updateWheelRadius() {
     if (!projectWheel || !wheelCards.length) return;
@@ -265,7 +266,12 @@
   nextButton?.addEventListener("click", () => selectWheelItem(selectedIndex + 1));
   wheelCards.forEach((card, index) => {
     card.addEventListener("click", event => {
-      if (wasDragging) { event.preventDefault(); wasDragging = false; return; }
+      if (wasDragging || suppressNextWheelClick) {
+        event.preventDefault();
+        wasDragging = false;
+        suppressNextWheelClick = false;
+        return;
+      }
       selectWheelItem(index, true);
     });
   });
@@ -299,7 +305,15 @@
     wheelViewport?.classList.remove("is-dragging");
     dragStartX = null;
     dragTarget = null;
-    if (wasDragging) window.setTimeout(() => { wasDragging = false; }, 0);
+    if (wasDragging) {
+      // Pointer-driven clicks arrive immediately after pointerup; keep suppression
+      // briefly so a dragged card cannot accidentally open its modal.
+      suppressNextWheelClick = true;
+      window.setTimeout(() => {
+        wasDragging = false;
+        suppressNextWheelClick = false;
+      }, 250);
+    }
   };
   wheelViewport?.addEventListener("pointerup", finishWheelDrag);
   wheelViewport?.addEventListener("pointercancel", finishWheelDrag);
