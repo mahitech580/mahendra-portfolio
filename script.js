@@ -107,6 +107,7 @@
   // Scroll-linked details: progress, active navigation, expanding image, and pinned horizontal journey.
   const header = $("#siteHeader");
   const progressBar = $("#scrollProgress");
+  const backToTop = $("#backToTop");
   const expandFrame = $("#expandFrame");
   const journeyWrap = $("#journeyWrap");
   const journeyTrack = $("#journeyTrack");
@@ -128,7 +129,13 @@
     navTargets.forEach(section => {
       if (section.getBoundingClientRect().top < window.innerHeight * 0.48) activeId = section.id;
     });
-    navLinks.forEach(link => link.classList.toggle("active", link.getAttribute("href") === "#" + activeId));
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute("href") === "#" + activeId;
+      link.classList.toggle("active", isActive);
+      if (isActive) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+    backToTop?.classList.toggle("is-visible", scrollY > 620);
 
     if (expandFrame && !reducedMotion) {
       const rect = expandFrame.closest(".expand-zone")?.getBoundingClientRect();
@@ -162,6 +169,9 @@
   window.addEventListener("scroll", requestScrollUpdate, { passive: true });
   window.addEventListener("resize", requestScrollUpdate, { passive: true });
   updateScrollEffects();
+  backToTop?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  });
 
   // Subtle portrait response to pointer movement; disabled on touch or reduced-motion settings.
   const heroVisual = $("#heroVisual");
@@ -331,6 +341,33 @@
 
   // Map the visual case files to the same source of truth as the 3D wheel.
   const galleryCards = $$(".project-gallery-card");
+  const galleryFilters = $(".gallery-filter");
+  const galleryResultCount = $("#galleryResultCount");
+  const applyGalleryFilter = filter => {
+    let visibleCount = 0;
+    galleryCards.forEach(card => {
+      const isVisible = filter === "all" || card.dataset.filterCategory === filter;
+      card.hidden = !isVisible;
+      if (isVisible) visibleCount++;
+    });
+    galleryFilters.forEach(button => {
+      const isActive = button.dataset.filter === filter;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+    if (galleryResultCount) {
+      galleryResultCount.textContent = "SHOWING " + String(visibleCount).padStart(2, "0") + " / 06 BUILDS";
+    }
+    const gallery = $("#projectGallery");
+    if (gallery) {
+      const label = filter === "all" ? "all software projects" : filter === "product" ? "web and product projects" : filter === "ai" ? "AI and machine-learning projects" : "generative AI and developer-tool projects";
+      gallery.setAttribute("aria-label", "Showing " + visibleCount + " of 6 projects: " + label);
+    }
+  };
+  galleryFilters.forEach(button => {
+    button.addEventListener("click", () => applyGalleryFilter(button.dataset.filter || "all"));
+  });
+
   galleryCards.forEach(card => {
     card.addEventListener("click", () => {
       const index = Number.parseInt(card.dataset.projectIndex, 10);

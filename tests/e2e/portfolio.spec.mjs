@@ -130,6 +130,35 @@ test("image atlas opens the matching project modal and repository link", async (
   await expect(page.locator("#projectModal")).not.toHaveClass(/is-open/);
 });
 
+test("project filters show the matching category and restore all cards", async ({ page }) => {
+  const cards = page.locator("#projectGallery .project-gallery-card");
+  await expect(cards).toHaveCount(6);
+  await page.getByRole("button", { name: /AI \/ ML/ }).click();
+  await expect(cards.filter({ visible: true })).toHaveCount(2);
+  await expect(page.locator('#projectGallery [data-project-index="2"]')).toBeVisible();
+  await expect(page.locator('#projectGallery [data-project-index="4"]')).toBeVisible();
+  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 02 / 06 BUILDS");
+  await expect(page.getByRole("button", { name: /AI \/ ML/ })).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: /GenAI & tools/ }).click();
+  await expect(cards.filter({ visible: true })).toHaveCount(2);
+  await expect(page.locator('#projectGallery [data-project-index="3"]')).toBeVisible();
+  await expect(page.locator('#projectGallery [data-project-index="5"]')).toBeVisible();
+
+  await page.getByRole("button", { name: /All builds/ }).click();
+  await expect(cards.filter({ visible: true })).toHaveCount(6);
+  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 06 / 06 BUILDS");
+});
+
+test("floating back-to-top control appears on scroll and returns to the hero", async ({ page }) => {
+  const control = page.locator("#backToTop");
+  await expect(control).toHaveCount(1);
+  await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }));
+  await expect(control).toHaveClass(/is-visible/);
+  await control.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 4_000 }).toBeLessThan(160);
+});
+
 test("reduced-motion preference keeps essential content visible", async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();

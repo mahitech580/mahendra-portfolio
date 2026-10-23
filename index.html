@@ -39,6 +39,9 @@
     <div class="preloader-line"><i></i></div>
   </div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <button class="back-to-top-float" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+    <i class="bx bx-up-arrow-alt" aria-hidden="true"></i>
+  </button>
   <div class="cursor cursor-ring" id="cursorRing" aria-hidden="true"></div>
   <div class="cursor cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
@@ -260,33 +263,42 @@
         <div><span class="mono gallery-overline">PROJECT ARCHIVE / SIX BUILDS</span><h3>Different problems.<br><em>One practice.</em></h3></div>
         <p>Six concise case files to complement the interactive reel above. The cover art is sourced from public visual references—not passed off as screenshots from your actual deployments.</p>
       </div>
+      <div class="gallery-filter-bar reveal">
+        <div class="gallery-filters" role="group" aria-label="Filter projects">
+          <button class="gallery-filter is-active" type="button" data-filter="all" aria-pressed="true">All builds <span>06</span></button>
+          <button class="gallery-filter" type="button" data-filter="product" aria-pressed="false">Web & product <span>02</span></button>
+          <button class="gallery-filter" type="button" data-filter="ai" aria-pressed="false">AI / ML <span>02</span></button>
+          <button class="gallery-filter" type="button" data-filter="genai" aria-pressed="false">GenAI & tools <span>02</span></button>
+        </div>
+        <p class="gallery-result-count mono" id="galleryResultCount" aria-live="polite" aria-atomic="true">SHOWING 06 / 06 BUILDS</p>
+      </div>
       <div class="project-gallery" id="projectGallery" aria-label="Visual gallery of six software projects">
-        <button class="project-gallery-card reveal" type="button" data-project-index="0" aria-label="Open AVERIS project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="0" data-filter-category="product" aria-label="Open AVERIS project details">
           <span class="project-gallery-media"><img src="https://cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png" alt="Illustrative hospital operations dashboard with scheduling and utilization panels" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 01</span><span>HEALTHCARE ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">PRODUCT / OPERATIONS</span><strong>AVERIS</strong><span class="project-gallery-summary">Operational clarity for complex workflows.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>
         </button>
-        <button class="project-gallery-card reveal" type="button" data-project-index="1" aria-label="Open TripPilot project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="1" data-filter-category="product" aria-label="Open TripPilot project details">
           <span class="project-gallery-media"><img src="https://cdn.dribbble.com/userupload/46846817/file/0b9f85b7b940bdbd3ea2661952772384.png?resize=2048x1536&amp;vertical=center" alt="Illustrative AI trip-planning scene with destination and itinerary tools" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 02</span><span>TRAVEL ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">DISCOVERY / PLANNING</span><strong>TripPilot</strong><span class="project-gallery-summary">Bring a destination and a plan together.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>
         </button>
-        <button class="project-gallery-card reveal" type="button" data-project-index="2" aria-label="Open Deepfake Detection project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="2" data-filter-category="ai" aria-label="Open Deepfake Detection project details">
           <span class="project-gallery-media"><img src="https://echodefence.com/images/deepfake-detection-analysis.png" alt="Illustrative media-authenticity dashboard with facial and signal analysis" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 03</span><span>COMPUTER VISION ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">AI / MEDIA FORENSICS</span><strong>Deepfake Detection</strong><span class="project-gallery-summary">Explore signals behind synthetic media.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>
         </button>
-        <button class="project-gallery-card reveal" type="button" data-project-index="3" aria-label="Open NodeAI Studio project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="3" data-filter-category="genai" aria-label="Open NodeAI Studio project details">
           <span class="project-gallery-media"><img src="https://www.virtualizationhowto.com/wp-content/uploads/2025/07/Amazon-Kiro-IDE-with-AI-capabilities-1.png" alt="Illustrative dark AI coding workspace with editor and coding assistant" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 04</span><span>DEVELOPER TOOLS ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">GENAI / WORKSPACE</span><strong>NodeAI Studio</strong><span class="project-gallery-summary">A practical workspace for building with AI.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>
         </button>
-        <button class="project-gallery-card reveal" type="button" data-project-index="4" aria-label="Open Crop Yield Prediction project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="4" data-filter-category="ai" aria-label="Open Crop Yield Prediction project details">
           <span class="project-gallery-media"><img src="https://www.orbixhub.com/assets/images/platform-dashboard.jpg" alt="Illustrative precision agriculture field with crop-health and telemetry overlays" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 05</span><span>AGRICULTURE ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">MACHINE LEARNING / PREDICTION</span><strong>Crop Yield Prediction</strong><span class="project-gallery-summary">Translate agricultural data into useful estimates.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>
         </button>
-        <button class="project-gallery-card reveal" type="button" data-project-index="5" aria-label="Open VoxGenAI project details">
+        <button class="project-gallery-card reveal" type="button" data-project-index="5" data-filter-category="genai" aria-label="Open VoxGenAI project details">
           <span class="project-gallery-media"><img src="https://staging.media.fairstack.ai/image/8f9d83db-5c6f-4904-a967-6f4b93cf6f6b/81be99f4-25ba-4a1c-896d-0ff4d209deb4.png" alt="Illustrative luminous microphone and generative audio waveform" loading="lazy" decoding="async"><span class="project-gallery-vignette"></span></span>
           <span class="project-gallery-top mono"><span>CASE FILE / 06</span><span>VOICE / GENAI ↗</span></span>
           <span class="project-gallery-bottom"><span><span class="project-gallery-type mono">GENERATIVE AI / VOICE</span><strong>VoxGenAI</strong><span class="project-gallery-summary">Explore more natural ways to interact with AI.</span></span><span class="project-gallery-arrow" aria-hidden="true">↗</span></span>

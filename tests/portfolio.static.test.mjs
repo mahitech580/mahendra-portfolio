@@ -159,6 +159,25 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "personal portrait must remain the requested image");
 });
 
+test("project archive filters and counts are wired to six categorized cards", () => {
+  const filterButtons = [...html.matchAll(/<button class="gallery-filter[^"]*"[^>]*data-filter="([^"]+)"/g)];
+  assert.deepEqual(filterButtons.map(match => match[1]), ["all", "product", "ai", "genai"]);
+  assert.equal((html.match(/data-filter-category="product"/g) || []).length, 2);
+  assert.equal((html.match(/data-filter-category="ai"/g) || []).length, 2);
+  assert.equal((html.match(/data-filter-category="genai"/g) || []).length, 2);
+  assert.ok(html.includes('id="galleryResultCount" aria-live="polite"'));
+  assert.ok(js.includes("const applyGalleryFilter = filter =>"));
+  assert.ok(js.includes('card.hidden = !isVisible;'));
+  assert.ok(js.includes('button.setAttribute("aria-pressed", String(isActive))'));
+});
+
+test("floating return-to-top control is accessible and scroll-aware", () => {
+  assert.ok(html.includes('id="backToTop" type="button" aria-label="Back to top"'));
+  assert.ok(js.includes('backToTop?.classList.toggle("is-visible", scrollY > 620)'));
+  assert.ok(js.includes('window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" })'));
+  assert.ok(js.includes('link.setAttribute("aria-current", "location")'));
+});
+
 test("contact form keeps its configured endpoint and required fields", () => {
   const form = html.match(/<form class="contact-form\b[^"]*"[^>]*>[\s\S]*?<\/form>/)?.[0];
   assert.ok(form, "contact form missing");
