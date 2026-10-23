@@ -173,21 +173,7 @@
     window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
   });
 
-  // Subtle portrait response to pointer movement; disabled on touch or reduced-motion settings.
-  const heroVisual = $("#heroVisual");
-  if (heroVisual && !reducedMotion && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-    heroVisual.addEventListener("pointermove", event => {
-      const r = heroVisual.getBoundingClientRect();
-      const x = (event.clientX - r.left) / r.width - .5;
-      const y = (event.clientY - r.top) / r.height - .5;
-      heroVisual.style.setProperty("--pointer-x", (x * 10).toFixed(2) + "px");
-      heroVisual.style.setProperty("--pointer-y", (y * 10).toFixed(2) + "px");
-    });
-    heroVisual.addEventListener("pointerleave", () => {
-      heroVisual.style.setProperty("--pointer-x", "0px");
-      heroVisual.style.setProperty("--pointer-y", "0px");
-    });
-  }
+  // Keep the personal portrait anchored; cursor motion belongs to the background light, not the person.
 
   // Optional custom cursor on precision pointers. Native cursors remain for touch/accessibility.
   const ring = $("#cursorRing");

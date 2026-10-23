@@ -57,6 +57,27 @@ test("desktop hero title, intro, and portrait stay within the first viewport", a
 });
 
 
+test("personal portrait remains anchored as the cursor moves across the hero", async ({ page }) => {
+  await page.setViewportSize({ width: 1648, height: 785 });
+  const portrait = page.locator(".hero-portrait");
+  const visual = page.locator("#heroVisual");
+  await expect(portrait).toBeVisible();
+  await portrait.evaluate(image => image.decode());
+  const before = await portrait.boundingBox();
+  const visualBox = await visual.boundingBox();
+  expect(before).not.toBeNull();
+  expect(visualBox).not.toBeNull();
+  await page.mouse.move(visualBox.x + visualBox.width * .22, visualBox.y + visualBox.height * .28);
+  await page.mouse.move(visualBox.x + visualBox.width * .82, visualBox.y + visualBox.height * .72, { steps: 8 });
+  await page.waitForTimeout(100);
+  const after = await portrait.boundingBox();
+  expect(after).not.toBeNull();
+  expect(Math.abs(after.x - before.x)).toBeLessThan(1);
+  expect(Math.abs(after.y - before.y)).toBeLessThan(1);
+  const transform = await portrait.evaluate(el => getComputedStyle(el).transform);
+  expect(transform).toBe("none");
+});
+
 test("project next, card click, modal links and Escape all work", async ({ page }) => {
   await page.locator("#wheelNext").click();
   await expect(page.locator("#workIndex")).toHaveText("02");

@@ -105,5 +105,7 @@ That branch contains the original `index.html`, `style.css`, and `script.js` as 
 
 ## Visual background attribution
 
-- Abstract blue and yellow fluid gradient by Universtock via [Unsplash](https://unsplash.com/photos/abstract-blue-and-yellow-fluid-gradient-background-bM38iNtaf-s).
-- Used as a softly color-graded atmospheric background under the [Unsplash License](https://unsplash.com/license); the portrait asset remains the local image specified by the site owner.
+- **Coding workspace:** Unsplash image CDN, `photo-1498050108023-c5249f4df085`, used as a software-development background under the [Unsplash License](https://unsplash.com/license).
+- **AI / ML atmosphere:** Unsplash image CDN, `photo-1677442136019-21780ecad995`, used to evoke AI and neural-network exploration under the [Unsplash License](https://unsplash.com/license).
+- **Space / nebula showcase:** Unsplash image CDN, `photo-1462331940025-496dfbfc7564`, used for the scroll-driven visual section under the [Unsplash License](https://unsplash.com/license).
+- The personal portrait remains the local image specified by the site owner and does not respond to cursor movement.

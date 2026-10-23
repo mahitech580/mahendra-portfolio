@@ -164,7 +164,9 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(lightTheme.includes("--accent: #5f3ee8"), "light theme should use a saturated violet accent");
   assert.ok(lightTheme.includes("--accent-strong: #5b35d5"), "strong accent should keep readable contrast");
   assert.ok(css.includes("MAHI / PRISM AURORA INTERACTION LAYER"), "visual refinement block should be present");
-  assert.ok(css.includes("images.unsplash.com/photo-1770954036350-b0307353f5d6"), "fluid abstract background image should be present");
+  assert.ok(css.includes("images.unsplash.com/photo-1498050108023-c5249f4df085"), "coding laptop background should be present");
+  assert.ok(css.includes("images.unsplash.com/photo-1677442136019-21780ecad995"), "AI / ML visual background should be present");
+  assert.ok(html.includes("images.unsplash.com/photo-1462331940025-496dfbfc7564"), "space/nebula showcase image should be present");
   assert.ok(/background-image:\s*radial-gradient/.test(css), "atmospheric color layers should be present");
   assert.ok(css.includes("@keyframes auroraFloat") && css.includes("@keyframes spectrumFlow"), "ambient and headline animations should exist");
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
@@ -180,6 +182,12 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
 test("gallery filter buttons are initialized as a collection and do not break page startup", () => {
   assert.ok(js.includes('const galleryFilters = $$(".gallery-filter")'), "all filter buttons must be collected");
   assert.ok(!js.includes('const galleryFilters = $(".gallery-filter")'), "a single filter element cannot support forEach");
+});
+
+test("the personal portrait stays still when the pointer moves", () => {
+  assert.ok(!js.includes('heroVisual.style.setProperty("--pointer-x"'), "pointer movement must not translate the personal portrait");
+  assert.ok(!js.includes('heroVisual.style.setProperty("--pointer-y"'), "pointer movement must not translate the personal portrait");
+  assert.ok(css.includes(".hero-portrait,\n.hero-visual:hover .hero-portrait {\n  transform: none !important;"), "portrait transforms should be disabled on hover");
 });
 
 test("project archive filters and counts are wired to six categorized cards", () => {
