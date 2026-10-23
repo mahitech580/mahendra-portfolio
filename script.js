@@ -383,6 +383,11 @@
     };
     window.requestAnimationFrame(focusCloseButton);
     window.setTimeout(focusCloseButton, 60);
+    // Re-assert focus after the overlay has completed its opening transition,
+    // in case the initiating card's default action or animation steals it.
+    projectModal.addEventListener("transitionend", event => {
+      if (event.target === projectModal && event.propertyName === "opacity") focusCloseButton();
+    }, { once: true });
   }
   function closeProjectModal() {
     if (!projectModal?.classList.contains("is-open")) return;
