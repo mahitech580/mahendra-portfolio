@@ -216,6 +216,7 @@
   const openDetailButton = $("#openProjectDetail");
   let selectedIndex = 0;
   let dragStartX = null;
+  let dragPointerId = null;
   let dragTarget = null;
   let dragDeltaX = 0;
   let wasDragging = false;
@@ -286,37 +287,40 @@
   wheelViewport?.addEventListener("pointerdown", event => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     dragStartX = event.clientX;
+    dragPointerId = event.pointerId;
     dragDeltaX = 0;
     wasDragging = false;
     wheelViewport.classList.add("is-dragging");
-    // Capture on the pressed card instead of the viewport so pointerup keeps
-    // the card as the click target and its details can open normally.
     dragTarget = event.target.closest?.(".wheel-card") || wheelViewport;
-    try { dragTarget.setPointerCapture?.(event.pointerId); } catch { /* Pointer may already be released. */ }
   });
-  wheelViewport?.addEventListener("pointermove", event => {
-    if (dragStartX === null) return;
+  // Observe movement on window, not only on the 3D card under the pointer.
+  // Rotating/transformed cards can change the event target during a drag.
+  window.addEventListener("pointermove", event => {
+    if (dragStartX === null || event.pointerId !== dragPointerId) return;
     dragDeltaX = event.clientX - dragStartX;
     if (Math.abs(dragDeltaX) > 8) wasDragging = true;
-  });
-  const finishWheelDrag = () => {
-    if (dragStartX === null) return;
-    if (Math.abs(dragDeltaX) > 28) selectWheelItem(selectedIndex - Math.round(dragDeltaX / 95));
+  }, { passive: true });
+  const finishWheelDrag = event => {
+    if (dragStartX === null || (event && event.pointerId !== dragPointerId)) return;
+    const didDrag = Math.abs(dragDeltaX) > 28;
+    if (didDrag) selectWheelItem(selectedIndex - Math.round(dragDeltaX / 95));
     wheelViewport?.classList.remove("is-dragging");
     dragStartX = null;
+    dragPointerId = null;
     dragTarget = null;
-    if (wasDragging) {
-      // The synthetic click follows pointerup in the same interaction. Clear
-      // suppression on the next task so only that drag-generated click is ignored.
+    if (didDrag || wasDragging) {
+      wasDragging = true;
       suppressNextWheelClick = true;
+      // Give the pointer-generated click one task to arrive, then clear the
+      // guard so a later intentional click is never swallowed.
       window.setTimeout(() => {
         wasDragging = false;
         suppressNextWheelClick = false;
-      }, 0);
+      }, 250);
     }
   };
-  wheelViewport?.addEventListener("pointerup", finishWheelDrag);
-  wheelViewport?.addEventListener("pointercancel", finishWheelDrag);
+  window.addEventListener("pointerup", finishWheelDrag);
+  window.addEventListener("pointercancel", finishWheelDrag);
   updateWheelRadius();
 
   // Project modal uses the same project metadata as the wheel so details stay in sync.
@@ -372,11 +376,13 @@
     projectModal.classList.add("is-open");
     projectModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-    // Defer focus until the browser finishes the triggering card's default click action.
-    // Otherwise the click can steal focus back from the newly opened dialog.
-    window.requestAnimationFrame(() => {
-      if (projectModal.classList.contains("is-open")) modalClose?.focus();
-    });
+    // The card's default click action may restore focus after this handler.
+    // Re-apply focus after the event and opening transition have started.
+    const focusCloseButton = () => {
+      if (projectModal.classList.contains("is-open")) modalClose?.focus({ preventScroll: true });
+    };
+    window.requestAnimationFrame(focusCloseButton);
+    window.setTimeout(focusCloseButton, 60);
   }
   function closeProjectModal() {
     if (!projectModal?.classList.contains("is-open")) return;
