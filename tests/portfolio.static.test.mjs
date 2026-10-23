@@ -107,6 +107,16 @@ test("theme and menu controls remain accessible on small screens", () => {
   assert.ok(js.includes('menuToggle.setAttribute("aria-label", willOpen ? "Close navigation" : "Open navigation")'));
 });
 
+test("CSE-focused image backgrounds are present and the personal portrait is not pointer-transformed", () => {
+  assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2400&q=85'), "coding laptop background should be used");
+  assert.ok(css.includes('photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1800&q=85'), "AI/ML imagery should be used in the skills section");
+  assert.ok(html.includes('photo-1462331940025-496dfbfc7564?w=1800&amp;q=85'), "space imagery should be used in the scroll showcase");
+  assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "keep the requested personal portrait");
+  const lastPortraitRule = css.slice(css.lastIndexOf("/* Keep the personal portrait anchored."));
+  assert.ok(lastPortraitRule.includes("transform: none !important;"), "the portrait must not translate with pointer movement");
+  assert.ok(!lastPortraitRule.includes("translate3d(var(--pointer-x"), "global pointer coordinates must not reposition the portrait");
+});
+
 test("hero composition fits the viewport and keeps the animated word clipped to text", () => {
   assert.ok(css.includes(".hero-layout {\n  min-height: clamp(500px, calc(100svh - var(--header-height) - 145px), 590px);"), "desktop hero should not force a 650px content minimum");
   assert.ok(css.includes(".hero-visual {\n  min-height: clamp(430px, calc(100svh - var(--header-height) - 240px), 520px);"), "visual column should use a viewport-aware height");

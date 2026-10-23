@@ -1314,3 +1314,14 @@ html[data-theme="dark"] #education {
   transition: filter .5s ease;
 }
 .hero-portrait { will-change: auto; }
+
+
+/* Keep the personal portrait anchored. The cursor light is a background effect only;
+   never bind actual pointer coordinates to the portrait's position. */
+.hero-portrait,
+.hero-visual:hover .hero-portrait {
+  transform: none !important;
+  will-change: auto;
+}
+.hero-portrait { transition: filter .55s ease; }
+

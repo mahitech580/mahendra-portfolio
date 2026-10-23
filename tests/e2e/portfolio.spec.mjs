@@ -78,6 +78,26 @@ test("personal portrait remains anchored as the cursor moves across the hero", a
   expect(transform).toBe("none");
 });
 
+test("personal portrait stays fixed when the cursor moves across the hero", async ({ page }) => {
+  await page.setViewportSize({ width: 1648, height: 900 });
+  const portrait = page.locator(".hero-portrait");
+  const visual = page.locator("#heroVisual");
+  await expect(portrait).toBeVisible();
+  await visual.scrollIntoViewIfNeeded();
+  const before = await portrait.boundingBox();
+  const bounds = await visual.boundingBox();
+  expect(before).not.toBeNull();
+  expect(bounds).not.toBeNull();
+  await page.mouse.move(bounds.x + bounds.width * .25, bounds.y + bounds.height * .30);
+  await page.mouse.move(bounds.x + bounds.width * .78, bounds.y + bounds.height * .68, { steps: 8 });
+  const after = await portrait.boundingBox();
+  expect(after).not.toBeNull();
+  expect(Math.abs(after.x - before.x)).toBeLessThan(1);
+  expect(Math.abs(after.y - before.y)).toBeLessThan(1);
+  expect(Math.abs(after.width - before.width)).toBeLessThan(1);
+  expect(Math.abs(after.height - before.height)).toBeLessThan(1);
+});
+
 test("project next, card click, modal links and Escape all work", async ({ page }) => {
   await page.locator("#wheelNext").click();
   await expect(page.locator("#workIndex")).toHaveText("02");
