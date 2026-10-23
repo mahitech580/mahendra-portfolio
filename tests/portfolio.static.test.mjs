@@ -116,7 +116,13 @@ test("hero composition fits the viewport and keeps the animated word clipped to 
 });
 
 test("hero gradient is clipped to text rather than painting a rectangular block", () => {
-  const starts = [...css.matchAll(/\\.hero \\.title-metal \\{/g)].map(match => match.index);
+  const marker = ".hero .title-metal {";
+  const starts = [];
+  let cursor = 0;
+  while ((cursor = css.indexOf(marker, cursor)) !== -1) {
+    starts.push(cursor);
+    cursor += marker.length;
+  }
   const rules = starts.map(index => {
     const open = css.indexOf("{", index);
     const close = css.indexOf("}", open);
