@@ -121,7 +121,7 @@ test("small text and keyboard focus on dark sections remain readable", () => {
   assert.ok(timelineColor && contrastRatio(timelineColor, "#1b1e1d") >= 4.5, "timeline labels need 4.5:1 contrast");
   assert.ok(wheelHintColor && contrastRatio(wheelHintColor, "#111313") >= 4.5, "wheel instructions need 4.5:1 contrast");
   assert.ok(placeholderColor && contrastRatio(placeholderColor, "#161918") >= 4.5, "form placeholders need 4.5:1 contrast");
-  assert.ok(css.includes(".journey-section :focus-visible,\\n.work-section :focus-visible,\\n.contact-section :focus-visible { outline-color: var(--accent); }"), "dark sections need a high-contrast focus ring");
+  assert.ok(css.includes(".journey-section :focus-visible,") && css.includes(".work-section :focus-visible,") && css.includes(".contact-section :focus-visible { outline-color: var(--accent); }"), "dark sections need a high-contrast focus ring");
 });
 
 test("contact form keeps its configured endpoint and required fields", () => {
