@@ -116,7 +116,12 @@ test("hero composition fits the viewport and keeps the animated word clipped to 
 });
 
 test("hero gradient is clipped to text rather than painting a rectangular block", () => {
-  const rules = [...css.matchAll(/\\.hero \\.title-metal \\{([^}]*)\\}/g)].map(match => match[1]);
+  const starts = [...css.matchAll(/\\.hero \\.title-metal \\{/g)].map(match => match.index);
+  const rules = starts.map(index => {
+    const open = css.indexOf("{", index);
+    const close = css.indexOf("}", open);
+    return css.slice(open + 1, close);
+  });
   const block = rules.find(rule => rule.includes("-webkit-background-clip: text") && rule.includes("background-clip: text") && rule.includes("-webkit-text-fill-color: transparent"));
   assert.ok(block, "a hero gradient rule must clip the gradient to text glyphs");
   assert.ok(block.includes("-webkit-background-clip: text"), "WebKit text clipping must be reapplied after the background shorthand");
