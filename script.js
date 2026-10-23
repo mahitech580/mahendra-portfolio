@@ -306,13 +306,13 @@
     dragStartX = null;
     dragTarget = null;
     if (wasDragging) {
-      // Pointer-driven clicks arrive immediately after pointerup; keep suppression
-      // briefly so a dragged card cannot accidentally open its modal.
+      // The synthetic click follows pointerup in the same interaction. Clear
+      // suppression on the next task so only that drag-generated click is ignored.
       suppressNextWheelClick = true;
       window.setTimeout(() => {
         wasDragging = false;
         suppressNextWheelClick = false;
-      }, 250);
+      }, 0);
     }
   };
   wheelViewport?.addEventListener("pointerup", finishWheelDrag);
