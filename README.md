@@ -28,12 +28,12 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 
 The six project cards use illustrative references from third-party sites for atmosphere and category context; they are not screenshots captured from Mahi's actual deployments.
 
-- **Healthcare operations cover:** [AgileDigest — Healthcare Operations](https://agiledigest.com/industries/healthcare)
-- **Travel planning cover:** [AI Travelfika — AI Insights for Philippine Travel](https://ai.travelfika.com/blogs/ai-insights-for-philippine-travel)
+- **Healthcare operations cover:** [KodaSoken — Koda Flow hospital operations dashboard](https://kodasoken.com/koda-flow)
+- **Travel planning cover:** [Dribbble — Travel AI Assistant Chat Dashboard](https://dribbble.com/shots/25181444-Travel-AI-Assistant-Chat-Dashboard)
 - **Deepfake-analysis cover:** [Deepfake Detection dashboard visual](https://deepfakedetection.site/)
 - **AI coding-workspace cover:** [Virtualization How-To — Amazon Kiro AI IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
-- **Crop-yield cover:** [B-AGRO — Precision Agriculture](https://b-agro.az/)
-- **Voice AI cover:** [Vivago — AI voice waveform visual](https://vivago.ai/effects/video/55494ec7-3c31-46e0-b4cb-464091b9e83b)
+- **Crop-yield cover:** [Plavno — AI Crop Monitoring & Precision Agriculture](https://plavno.io/cases/ai-crop-monitoring-precision-agriculture-platform-smart-farming)
+- **Voice AI cover:** [Will Spurlock — Voice AI waveform visual](https://williamspurlock.com/blog/elevenlabs-voice-ai-expansion-september-2024/)
 
 ## Tech
 
