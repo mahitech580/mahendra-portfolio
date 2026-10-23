@@ -88,7 +88,7 @@ test("liquid preview choices match project-card image URLs", () => {
     assert.ok(image, "project card image missing");
     return normalized(attr(image[0], "src"));
   });
-  const choices = [...html.matchAll(/<button class="liquid-choice[^"]*"[^>]*>/g)]
+  const choices = [...html.matchAll(/<button\b[^>]*\bclass="[^"]*\bliquid-choice\b[^"]*"[^>]*>/g)]
     .map(match => normalized(attr(match[0], "data-image")));
   assert.equal(choices.length, 6);
   assert.deepEqual(choices, cardImages);
