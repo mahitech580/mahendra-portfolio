@@ -26,7 +26,7 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 
 ## Illustrative cover-image sources
 
-The six project cards use online cover visuals for atmosphere and category context. They are not presented as screenshots captured from Mahi's actual deployments.
+The six project cards use illustrative references from third-party sites for atmosphere and category context; they are not screenshots captured from Mahi's actual deployments.
 
 - **Healthcare operations cover:** [AgileDigest — Healthcare Operations](https://agiledigest.com/industries/healthcare)
 - **Travel planning cover:** [AI Travelfika — AI Insights for Philippine Travel](https://ai.travelfika.com/blogs/ai-insights-for-philippine-travel)
