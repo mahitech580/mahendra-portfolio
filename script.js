@@ -341,7 +341,7 @@
 
   // Map the visual case files to the same source of truth as the 3D wheel.
   const galleryCards = $$(".project-gallery-card");
-  const galleryFilters = $(".gallery-filter");
+  const galleryFilters = $$(".gallery-filter");
   const galleryResultCount = $("#galleryResultCount");
   const applyGalleryFilter = filter => {
     let visibleCount = 0;
