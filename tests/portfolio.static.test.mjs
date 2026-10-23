@@ -141,6 +141,17 @@ test("image-first project atlas includes six projects and preserves the requeste
   assert.ok(js.includes('const galleryCards = $$(".project-gallery-card")'), "gallery interactions must bind to the full card collection");
 });
 
+test("visual direction stays monochrome and project cover assets match their domains", () => {
+  const lightTheme = css.slice(css.indexOf(":root {"), css.indexOf('html[data-theme="dark"]'));
+  assert.ok(lightTheme.includes("--accent: #101111"), "light theme should use an ink accent instead of neon cyan");
+  assert.ok(css.includes("/* ECHO-informed art direction"), "editorial refinement block should be present");
+  assert.ok(html.includes("cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png"));
+  assert.ok(html.includes("cdn.dribbble.com/userupload/46846817/file/0b9f85b7b940bdbd3ea2661952772384.png"));
+  assert.ok(html.includes("orbixhub.com/assets/images/platform-dashboard.jpg"));
+  assert.ok(html.includes("staging.media.fairstack.ai/image/8f9d83db-5c6f-4904-a967-6f4b93cf6f6b/81be99f4-25ba-4a1c-896d-0ff4d209deb4.png"));
+  assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "personal portrait must remain the requested image");
+});
+
 test("contact form keeps its configured endpoint and required fields", () => {
   const form = html.match(/<form class="contact-form\b[^"]*"[^>]*>[\s\S]*?<\/form>/)?.[0];
   assert.ok(form, "contact form missing");

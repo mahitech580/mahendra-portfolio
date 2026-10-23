@@ -7,7 +7,7 @@ Personal portfolio for **Mahendra Sai Kondaveeti (Mahi)**, a 2026 Computer Scien
 
 ## Experience design
 
-The portfolio combines an editorial, monochrome visual system with cyan accents and original interaction code. It is an independent implementation inspired by broad interaction patterns in modern creative portfolios—not a copy of another site's source.
+The portfolio uses an independent monochrome editorial system: oversized typography, spacious grids, restrained motion, an interactive 3D work reel, scroll-linked storytelling, and project imagery sourced to match each build's domain. It is an independent implementation inspired by broad interaction patterns in modern creative portfolios—not a copy of another site's source.
 
 - **Orbital preloader** with reduced-motion support.
 - **Oversized editorial hero typography**, metallic gradient text, profile portrait masking, code sticker, and pointer-responsive depth.
@@ -26,14 +26,14 @@ The portfolio combines an editorial, monochrome visual system with cyan accents 
 
 ## Illustrative cover-image sources
 
-The six project cards use illustrative references from third-party sites for atmosphere and category context; they are not screenshots captured from Mahi's actual deployments.
+These publicly hosted illustrative references establish visual context for each project; they are not screenshots of Mahi's actual deployments.
 
-- **Healthcare operations cover:** [KodaSoken — Koda Flow hospital operations dashboard](https://kodasoken.com/koda-flow)
-- **Travel planning cover:** [Dribbble — Travel AI Assistant Chat Dashboard](https://dribbble.com/shots/25181444-Travel-AI-Assistant-Chat-Dashboard)
-- **Deepfake-analysis cover:** [Deepfake Detection dashboard visual](https://deepfakedetection.site/)
-- **AI coding-workspace cover:** [Virtualization How-To — Amazon Kiro AI IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
-- **Crop-yield cover:** [Plavno — AI Crop Monitoring & Precision Agriculture](https://plavno.io/cases/ai-crop-monitoring-precision-agriculture-platform-smart-farming)
-- **Voice AI cover:** [Will Spurlock — Voice AI waveform visual](https://williamspurlock.com/blog/elevenlabs-voice-ai-expansion-september-2024/)
+- **Healthcare operations:** [Dribbble — Healthcare Analytics Dashboard](https://dribbble.com/shots/27228685-Healthcare-Analytics-Dashboard-Patient-Monitoring-System)
+- **Travel planning:** [Dribbble — Edge Trip Planner Widget](https://dribbble.com/shots/27118900-Edge-Trip-Planner-Widget)
+- **Deepfake analysis:** [EchoDefence — Deepfake Detection Technology](https://echodefence.com/insights/deepfake-detection-technology/)
+- **AI coding workspace:** [Virtualization How-To — Amazon Kiro IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
+- **Crop-yield prediction:** [OrbixHub — AI-Based Crop Yield Prediction Dashboard](https://www.orbixhub.com/)
+- **Voice AI:** [FairStack — AI Voice Clone](https://fairstack.ai/tools/voice-clone)
 
 ## Tech
 
