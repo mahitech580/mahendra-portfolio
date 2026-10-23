@@ -47,7 +47,6 @@ mahendra-portfolio/
 ├── index.html
 ├── style.css
 ├── script.js
-├── mixitup.min.js
 ├── img/
 │   ├── 1.jpg ... 6.jpg
 │   ├── 630.jpeg
