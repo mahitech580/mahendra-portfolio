@@ -324,7 +324,7 @@
   updateWheelRadius();
 
   // Map the visual case files to the same source of truth as the 3D wheel.
-  const galleryCards = $(".project-gallery-card");
+  const galleryCards = $$(".project-gallery-card");
   galleryCards.forEach(card => {
     card.addEventListener("click", () => {
       const index = Number.parseInt(card.dataset.projectIndex, 10);
