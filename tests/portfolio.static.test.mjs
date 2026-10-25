@@ -187,10 +187,10 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
   assert.ok(js.includes('style.setProperty("--pointer-x"') && js.includes('style.setProperty("--pointer-y"'), "pointer lighting should follow the visitor");
   assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"), "motion preferences must be honored");
-  assert.ok(html.includes("photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "healthcare project uses matching artwork");
-  assert.ok(html.includes("photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "travel project uses matching artwork");
-  assert.ok(html.includes("photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "crop prediction project uses matching artwork");
-  assert.ok(html.includes("photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "voice AI project uses matching artwork");
+  assert.ok(html.includes("photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "healthcare project uses matching artwork");
+  assert.ok(html.includes("photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "travel project uses matching artwork");
+  assert.ok(html.includes("photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "crop prediction project uses matching artwork");
+  assert.ok(html.includes("photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "voice AI project uses matching artwork");
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "personal portrait must remain the requested image");
 });
 
