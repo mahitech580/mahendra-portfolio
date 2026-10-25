@@ -214,7 +214,7 @@
   const liquidCanvas = $("#liquidCanvas");
   const liquidFallback = $("#liquidFallback");
   const liquidLabel = $("#liquidLabel");
-  const liquidChoices = $(".liquid-choice");
+  const liquidChoices = $$(".liquid-choice");
   let changeLiquidImage = null;
   // Project wheel: responsive CSS 3D cylinder with pointer-drag, buttons and keyboard navigation.
   const wheelViewport = $("#wheelViewport");
