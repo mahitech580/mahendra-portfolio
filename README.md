@@ -26,6 +26,7 @@ The portfolio uses an independent monochrome editorial system: oversized typogra
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
 - **Machine-readable discovery:** `robots.txt`, `sitemap.xml`, `llms.txt`, and a minimal AI Catalog at `.well-known/ai-catalog.json`; the catalog is empty because this site does not host its own AI agents or tools.
+- **Netlify response headers:** baseline MIME-sniffing, clickjacking, referrer, opener-isolation, and browser-permissions protections are configured in `_headers`.
 
 
 ## Illustrative cover-image sources

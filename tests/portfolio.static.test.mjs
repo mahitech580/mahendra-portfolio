@@ -7,8 +7,8 @@ import test from "node:test";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = relative => readFile(path.join(root, relative), "utf8");
-const [html, css, js, readme] = await Promise.all([
-  read("index.html"), read("style.css"), read("script.js"), read("README.md")
+const [html, css, js, readme, headers] = await Promise.all([
+  read("index.html"), read("style.css"), read("script.js"), read("README.md"), read("_headers")
 ]);
 const attr = (source, name) => {
   const match = source.match(new RegExp("\\b" + name + "=\"([^\"]*)\""));
@@ -276,4 +276,12 @@ test("AI Catalog discovery document is valid and matches the services offered", 
   assert.equal(catalog.specVersion, "1.0", "AI Catalog spec version should be declared");
   assert.equal(catalog.host.displayName, "Mahi / Dev", "AI Catalog host should be identified");
   assert.deepEqual(catalog.entries, [], "do not advertise AI agents or tools that this portfolio does not actually host");
+});
+
+test("Netlify serves baseline security headers", () => {
+  assert.ok(headers.includes("X-Content-Type-Options: nosniff"), "MIME sniffing should be disabled");
+  assert.ok(headers.includes("X-Frame-Options: DENY"), "portfolio should not be embedded by third-party sites");
+  assert.ok(headers.includes("Cross-Origin-Opener-Policy: same-origin"), "browsing context isolation should be enabled");
+  assert.ok(headers.includes("Referrer-Policy: strict-origin-when-cross-origin"), "cross-origin links should not expose full path referrers");
+  assert.ok(headers.includes("Permissions-Policy: camera=(), microphone=(), geolocation=()"), "unused sensitive browser capabilities should be disabled");
 });
