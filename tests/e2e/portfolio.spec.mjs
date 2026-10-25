@@ -232,7 +232,7 @@ test("project filters show the matching categories and restore all twelve cards"
 
 test("arrow keys navigate projects across the whole projects section and wrap at both ends", async ({ page }) => {
   await page.locator("#work").scrollIntoViewIfNeeded();
-  await page.locator("body").click({ position: { x: 4, y: 4 }, force: true });
+  await page.locator(".work-heading h2").click({ position: { x: 12, y: 12 } });
   await page.keyboard.press("ArrowRight");
   await expect(page.locator("#workIndex")).toHaveText("02");
   await expect(page.locator("#selectedProjectTitle")).toHaveText("TripPilot");
