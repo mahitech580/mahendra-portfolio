@@ -13,7 +13,7 @@ The hero styling is consolidated into one responsive section rather than a stack
 The portfolio uses an independent monochrome editorial system: oversized typography, spacious grids, restrained motion, an interactive 3D work reel, scroll-linked storytelling, and project imagery sourced to match each build's domain. It is an independent implementation inspired by broad interaction patterns in modern creative portfolios—not a copy of another site's source.
 
 - **Orbital preloader** with reduced-motion support.
-- **Oversized editorial hero typography**, metallic gradient text, profile portrait masking, code sticker, and pointer-responsive depth.
+- **Oversized editorial hero typography**, metallic gradient text, profile portrait masking, and pointer-responsive depth.
 - **Scroll progress, active navigation and reveal-on-scroll transitions.**
 - **Scroll-expanding media frame** that grows as the visitor moves through the showcase.
 - **Scroll-friendly vertical journey timeline** covering the 2022–2026 CSE degree, applied AI/ML project work, full-stack product builds, and current entry-level role goals.
