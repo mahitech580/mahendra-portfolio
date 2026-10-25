@@ -27,8 +27,20 @@
         if (!container.querySelector("img.image-unavailable")) container.classList.remove("image-failed");
       });
   };
-  $$("img").forEach(image => {
-    image.addEventListener("error", () => markImageFallback(image));
+  $("img").forEach(image => {
+    image.addEventListener("error", () => {
+      // Netlify Image CDN sources are used in production, while local preview
+      // and GitHub Pages should fall back to the original local image.
+      const picture = image.closest("picture");
+      const source = picture?.querySelector("source");
+      if (source && image.currentSrc && image.currentSrc !== image.src && !image.dataset.sourceFallbackAttempted) {
+        image.dataset.sourceFallbackAttempted = "true";
+        source.remove();
+        image.removeAttribute("srcset");
+        return;
+      }
+      markImageFallback(image);
+    });
     image.addEventListener("load", () => clearImageFallback(image));
     if (image.complete && image.naturalWidth === 0 && image.currentSrc) markImageFallback(image);
   });
