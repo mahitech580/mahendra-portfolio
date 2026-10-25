@@ -186,7 +186,7 @@ test("mobile theme and navigation controls remain usable and labelled", async ({
 
 test("image atlas opens the matching project modal and repository link", async ({ page }) => {
   const gallery = page.locator("#projectGallery");
-  await expect(gallery.locator(".project-gallery-card")).toHaveCount(6);
+  await expect(gallery.locator(".project-gallery-card")).toHaveCount(12);
   await gallery.getByRole("button", { name: "Open NodeAI Studio project details" }).click();
   await expect(page.locator("#projectModal")).toHaveClass(/is-open/);
   await expect(page.locator("#modalTitle")).toHaveText("NodeAI Studio");
@@ -196,24 +196,70 @@ test("image atlas opens the matching project modal and repository link", async (
   await expect(page.locator("#projectModal")).not.toHaveClass(/is-open/);
 });
 
-test("project filters show the matching category and restore all cards", async ({ page }) => {
+test("each project gallery card has its own topic image and an accessible image description", async ({ page }) => {
+  const images = page.locator("#projectGallery .project-gallery-card img");
+  await expect(images).toHaveCount(12);
+  for (const image of await images.all()) {
+    await expect(image).toHaveAttribute("alt", /.+/);
+    await expect(image).toHaveAttribute("src", /^https:\/\/images\.unsplash\.com\//);
+  }
+});
+
+test("project filters show the matching categories and restore all twelve cards", async ({ page }) => {
   const cards = page.locator("#projectGallery .project-gallery-card");
-  await expect(cards).toHaveCount(6);
+  await expect(cards).toHaveCount(12);
   await page.getByRole("button", { name: /AI \/ ML/ }).click();
-  await expect(cards.filter({ visible: true })).toHaveCount(2);
-  await expect(page.locator('#projectGallery [data-project-index="2"]')).toBeVisible();
-  await expect(page.locator('#projectGallery [data-project-index="4"]')).toBeVisible();
-  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 02 / 06 BUILDS");
+  await expect(cards.filter({ visible: true })).toHaveCount(5);
+  for (const index of [2, 4, 6, 7, 10]) await expect(page.locator('#projectGallery [data-project-index="' + index + '"]')).toBeVisible();
+  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 05 / 12 BUILDS");
   await expect(page.getByRole("button", { name: /AI \/ ML/ })).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: /GenAI & tools/ }).click();
   await expect(cards.filter({ visible: true })).toHaveCount(2);
   await expect(page.locator('#projectGallery [data-project-index="3"]')).toBeVisible();
   await expect(page.locator('#projectGallery [data-project-index="5"]')).toBeVisible();
+  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 02 / 12 BUILDS");
+
+  await page.getByRole("button", { name: /SQL & data/ }).click();
+  await expect(cards.filter({ visible: true })).toHaveCount(2);
+  await expect(page.locator('#projectGallery [data-project-index="9"]')).toBeVisible();
+  await expect(page.locator('#projectGallery [data-project-index="10"]')).toBeVisible();
 
   await page.getByRole("button", { name: /All builds/ }).click();
-  await expect(cards.filter({ visible: true })).toHaveCount(6);
-  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 06 / 06 BUILDS");
+  await expect(cards.filter({ visible: true })).toHaveCount(12);
+  await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 12 / 12 BUILDS");
+});
+
+test("arrow keys navigate projects across the whole projects section and wrap at both ends", async ({ page }) => {
+  await page.locator("#work").scrollIntoViewIfNeeded();
+  await page.locator("body").click({ position: { x: 4, y: 4 }, force: true });
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#workIndex")).toHaveText("02");
+  await expect(page.locator("#selectedProjectTitle")).toHaveText("TripPilot");
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator("#workIndex")).toHaveText("01");
+  await expect(page.locator("#selectedProjectTitle")).toHaveText("AVERIS");
+  // Previous from the first project wraps to the final item in the twelve-project circle.
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator("#workIndex")).toHaveText("12");
+  await expect(page.locator("#selectedProjectTitle")).toHaveText("AI Resume Analyzer");
+});
+
+test("journey reads top-to-bottom without pinned horizontal scroll", async ({ page }) => {
+  const journey = page.locator("#journey");
+  await journey.scrollIntoViewIfNeeded();
+  await expect(journey.locator(".journey-item")).toHaveCount(4);
+  await expect(journey.getByRole("heading", { name: "Build the fundamentals." })).toBeVisible();
+  await expect(journey.getByRole("heading", { name: "Contribute, learn, and ship with a team." })).toBeVisible();
+  await expect(page.locator("#journeyTrack")).toHaveCount(0);
+});
+
+test("certification list includes all four supplied HackerRank credentials", async ({ page }) => {
+  const links = page.locator(".cert-list a[href*='hackerrank.com/certificates/']");
+  await expect(links).toHaveCount(4);
+  for (const id of ["153885a40705", "8e56fb1305d7", "31135fdb6019", "01694c7a5393"]) {
+    await expect(page.locator('.cert-list a[href*="' + id + '"]')).toHaveCount(1);
+  }
 });
 
 test("hero portrait stays anchored and the hero avoids horizontal overflow at key widths", async ({ page }) => {
@@ -245,7 +291,8 @@ test("reduced-motion preference keeps essential content visible", async ({ brows
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("#preloader")).toBeHidden();
   await expect(page.locator("h1")).toBeVisible();
-  await expect(page.locator("#journeyTrack")).toBeVisible();
+  await expect(page.locator("#journey")).toBeVisible();
+  await expect(page.locator(".journey-item")).toHaveCount(4);
   await context.close();
 });
 
