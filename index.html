@@ -20,14 +20,18 @@
   <meta name="twitter:image" content="https://mahitech580.github.io/mahendra-portfolio/img/Professional%20Portrait%20in%20a%20Modern%20Office.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css" rel="stylesheet">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="/.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=420&amp;fm=webp&amp;q=78 420w, /.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=720&amp;fm=webp&amp;q=78 720w, /.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=900&amp;fm=webp&amp;q=78 900w" imagesizes="(max-width: 700px) 88vw, (max-width: 1100px) 42vw, 455px" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/npm/devicon@2.15.1/devicon.min.css" rel="stylesheet"></noscript>
   <script>
     document.documentElement.classList.add("js");
     // Keep the page usable even if the deferred application script fails to load.
-    window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 2400);
+    window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 1200);
   </script>
   <script src="script.js" defer></script>
 </head>
@@ -91,14 +95,17 @@
             </div>
           </div>
         </div>
-        <div class="hero-visual reveal" id="heroVisual">
+        <div class="hero-visual" id="heroVisual">
           <div class="hero-visual-grid" aria-hidden="true"></div>
           <div class="hero-orbit orbit-one" aria-hidden="true"></div>
           <div class="hero-orbit orbit-two" aria-hidden="true"></div>
           <div class="hero-tag mono hero-tag-top"><span>01</span> CURIOUS BY DESIGN</div>
           <figure class="portrait-wrap">
             <div class="portrait-glow" aria-hidden="true"></div>
-            <img class="hero-portrait" src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png" alt="Portrait of Mahi" fetchpriority="high">
+            <picture class="hero-portrait-picture">
+              <source type="image/webp" srcset="/.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=420&amp;fm=webp&amp;q=78 420w, /.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=720&amp;fm=webp&amp;q=78 720w, /.netlify/images?url=%2Fimg%2FProfessional%2520Portrait%2520in%2520a%2520Modern%2520Office.png&amp;w=900&amp;fm=webp&amp;q=78 900w" sizes="(max-width: 700px) 88vw, (max-width: 1100px) 42vw, 455px">
+              <img class="hero-portrait" src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png" alt="Portrait of Mahi" fetchpriority="high" decoding="async">
+            </picture>
             <figcaption class="portrait-caption mono"><span>MAHI</span><span>CSE · CLASS OF 2026</span></figcaption>
           </figure>
           <div class="code-sticker">

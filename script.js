@@ -35,9 +35,9 @@
 
   const preloader = $("#preloader");
   window.addEventListener("load", () => {
-    window.setTimeout(() => preloader?.classList.add("is-done"), reducedMotion ? 0 : 780);
+    window.setTimeout(() => preloader?.classList.add("is-done"), reducedMotion ? 0 : 250);
   }, { once: true });
-  window.setTimeout(() => preloader?.classList.add("is-done"), reducedMotion ? 0 : 1800);
+  window.setTimeout(() => preloader?.classList.add("is-done"), reducedMotion ? 0 : 1000);
 
   // Reveal elements only after the observer is ready; no-JS browsing stays readable.
   const revealItems = $$(".reveal");

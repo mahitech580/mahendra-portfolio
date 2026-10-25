@@ -233,7 +233,7 @@ test("3D wheel drag cannot be intercepted by native image dragging", () => {
 });
 
 test("reduced-motion and no-JavaScript recovery remain available", () => {
-  assert.ok(html.includes('window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 2400)'));
+  assert.ok(html.includes('window.setTimeout(() => document.getElementById("preloader")?.classList.add("is-done"), 1200)'));
   assert.ok(css.includes("html:not(.js) .preloader { display: none; }"));
   assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"));
   assert.ok(js.includes('window.matchMedia("(prefers-reduced-motion: reduce)").matches'));
