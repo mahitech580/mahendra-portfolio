@@ -141,8 +141,8 @@ test("horizontal drag rotates the wheel without opening a project", async ({ pag
 });
 
 test("liquid preview selection stays synchronized with project details", async ({ page }) => {
-  await page.getByRole("button", { name: "Preview Crop Yield AI" }).click();
-  await expect(page.locator("#liquidLabel")).toHaveText("CROP YIELD AI / PROJECT 05");
+  await page.getByRole("button", { name: "Preview Crop Yield Prediction" }).click();
+  await expect(page.locator("#liquidLabel")).toHaveText("CROP YIELD PREDICTION / PROJECT 05");
   await expect(page.locator("#workIndex")).toHaveText("05");
   await expect(page.locator("#selectedProjectTitle")).toHaveText("Crop Yield Prediction");
 });
@@ -210,7 +210,7 @@ test("project filters show the matching categories and restore all twelve cards"
   await expect(cards).toHaveCount(12);
   await page.getByRole("button", { name: /AI \/ ML/ }).click();
   await expect(cards.filter({ visible: true })).toHaveCount(5);
-  for (const index of [2, 4, 6, 7, 10]) await expect(page.locator('#projectGallery [data-project-index="' + index + '"]')).toBeVisible();
+  for (const index of [2, 4, 7, 8, 11]) await expect(page.locator('#projectGallery [data-project-index="' + index + '"]')).toBeVisible();
   await expect(page.locator("#galleryResultCount")).toHaveText("SHOWING 05 / 12 BUILDS");
   await expect(page.getByRole("button", { name: /AI \/ ML/ })).toHaveAttribute("aria-pressed", "true");
 
