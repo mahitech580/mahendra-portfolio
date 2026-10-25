@@ -16,12 +16,12 @@ The portfolio uses an independent monochrome editorial system: oversized typogra
 - **Oversized editorial hero typography**, metallic gradient text, profile portrait masking, code sticker, and pointer-responsive depth.
 - **Scroll progress, active navigation and reveal-on-scroll transitions.**
 - **Scroll-expanding media frame** that grows as the visitor moves through the showcase.
-- **Horizontal, pinned journey timeline** on desktop, with a readable stacked layout on smaller screens.
-- **Interactive 3D project wheel** with mouse/touch drag, previous/next controls, keyboard support and selected-project details.
-- **Image-first project atlas** with six asymmetrical editorial cards, curated online visuals, subtle hover depth, responsive layouts and one-click links into the matching project detail modal.
+- **Scroll-friendly vertical journey timeline** covering the 2022–2026 CSE degree, applied AI/ML project work, full-stack product builds, and current entry-level role goals.
+- **Interactive 3D project wheel** with manual previous/next controls, pointer drag, ← / → navigation while the Projects section is visible, wrapping selection, and selected-project details.
+- **Image-first project atlas** with twelve editorial project cards, category filters for product, AI/ML, GenAI and data/SQL, topic-matched artwork, responsive layouts and one-click links into the matching project detail modal.
 - **Project inspection modal** with live/source links, focus handling and Escape-to-close behavior.
 - **Optional OGL/WebGL liquid preview**, loaded only when the showcase approaches the viewport, with a normal-image fallback if the module cannot load or WebGL is unavailable.
-- **Online project cover imagery and a new six-card visual atlas** selected by project domain; these are illustrative third-party references, not screenshots of Mahi's actual deployments. The only personal portrait is the specified file in `img/Professional Portrait in a Modern Office.png`.
+- **Twelve topic-matched project covers** spanning healthcare, travel, computer vision, AI coding, agriculture, voice AI, inventory, analytics, cinema, banking, logistics and resume tooling. Covers are illustrative Unsplash photos, not screenshots of Mahi's actual deployments. The only personal portrait is the specified file in `img/Professional Portrait in a Modern Office.png`.
 - **Responsive capability cards, technology chips, education, certifications and internship highlights.**
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
@@ -29,16 +29,24 @@ The portfolio uses an independent monochrome editorial system: oversized typogra
 - **Netlify response headers:** baseline MIME-sniffing, clickjacking, referrer, opener-isolation, and browser-permissions protections are configured in `_headers`.
 
 
-## Illustrative cover-image sources
+## Project archive
 
-These publicly hosted illustrative references establish visual context for each project; they are not screenshots of Mahi's actual deployments.
+The 12 cards link to their matching public repositories. Live links are only shown for projects with a configured demo URL; projects without a demo link open the source repository.
 
-- **Healthcare operations:** [Dribbble — Healthcare Analytics Dashboard](https://dribbble.com/shots/27228685-Healthcare-Analytics-Dashboard-Patient-Monitoring-System)
-- **Travel planning:** [Dribbble — Edge Trip Planner Widget](https://dribbble.com/shots/27118900-Edge-Trip-Planner-Widget)
-- **Deepfake analysis:** [EchoDefence — Deepfake Detection Technology](https://echodefence.com/insights/deepfake-detection-technology/)
-- **AI coding workspace:** [Virtualization How-To — Amazon Kiro IDE](https://www.virtualizationhowto.com/2025/07/amazon-kiro-ai-ide-released-in-preview-download-it-now/)
-- **Crop-yield prediction:** [OrbixHub — AI-Based Crop Yield Prediction Dashboard](https://www.orbixhub.com/)
-- **Voice AI:** [FairStack — AI Voice Clone](https://fairstack.ai/tools/voice-clone)
+1. **AVERIS** — simulated healthcare-operations product UI.
+2. **TripPilot** — responsive travel planning experience.
+3. **Deepfake Video Detection** — CNN and frequency-domain media analysis.
+4. **NodeAI Studio** — AI-assisted developer workspace.
+5. **Crop Yield Prediction** — agricultural prediction and recommendation workflow.
+6. **VoxGenAI** — local voice assistant using speech recognition and a locally run model.
+7. **StockFlow** — organization-scoped inventory SaaS MVP.
+8. **DataVision Intelligence** — data profiling, quality checks and model workflows.
+9. **CINEPLAY** — regional and genre-aware AI movie discovery.
+10. **Banking & Financial Transaction Management** — synthetic-data MySQL/REST analytics system.
+11. **LastMileIQ SQL** — PostgreSQL delivery and route analytics.
+12. **AI Resume Analyzer** — document extraction and job-description skill matching.
+
+Cover images use topic-related photos from [Unsplash](https://unsplash.com/license). They establish visual context and are not screenshots from Mahi's actual deployments.
 
 ## Tech
 
@@ -70,7 +78,7 @@ Then open http://localhost:8080. A local server is needed for consistent module 
 
 ## Quality checks
 
-GitHub Actions runs static source checks and Chromium browser tests on pushes to `main` and pull requests. Tests cover local asset references, HTML anchors, individual project repositories, image/preview matching, theme contrast, mobile navigation, project-wheel clicks and keyboard controls, modal links, image-fallback behavior, and contact-form wiring.
+GitHub Actions runs static source checks and Chromium browser tests on pushes to `main` and pull requests. Tests cover local assets and anchors, all 12 repository mappings and gallery images, project filtering, left/right arrow navigation and wraparound, the vertical journey, HackerRank links, theme contrast, mobile layout, modal behavior, image fallback, and contact-form wiring.
 
 The portfolio remains a static GitHub Pages site; Node.js and Playwright are development-only test tools and are not needed by visitors.
 
