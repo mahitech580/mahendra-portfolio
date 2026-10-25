@@ -7,8 +7,8 @@ import test from "node:test";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = relative => readFile(path.join(root, relative), "utf8");
-const [html, css, js, readme, headers] = await Promise.all([
-  read("index.html"), read("style.css"), read("script.js"), read("README.md"), read("_headers")
+const [html, css, js, readme, headers, netlifyConfig] = await Promise.all([
+  read("index.html"), read("style.css"), read("script.js"), read("README.md"), read("_headers"), read("netlify.toml")
 ]);
 const attr = (source, name) => {
   const match = source.match(new RegExp("\\b" + name + "=\"([^\"]*)\""));
@@ -328,6 +328,19 @@ test("Selected Work preview rotates every five seconds and keeps each project's 
   assert.ok(js.includes("selectWheelItem(selectedIndex + 1)"));
   assert.ok(css.includes(".liquid-showcase > img { filter: saturate(1.12) brightness(.78) contrast(1.04);"), "full-color images should remain vivid in the closer-look preview");
   assert.ok(css.includes(".detail-open { color: #f5f7f3;"), "Open project details must remain readable on the dark work panel in either theme");
+});
+
+
+test("Netlify publishes only the complete static site directory", () => {
+  assert.ok(netlifyConfig.includes('publish = "dist"'), "publish only the prepared dist directory");
+  assert.ok(netlifyConfig.includes("rm -rf dist && mkdir -p dist"), "clean build output before packaging");
+  for (const file of ["index.html", "style.css", "script.js", "robots.txt", "sitemap.xml", "llms.txt", "_headers"]) {
+    assert.ok(netlifyConfig.includes(file), "Netlify build must copy " + file);
+  }
+  for (const directory of ["img", "files", ".well-known"]) {
+    assert.ok(netlifyConfig.includes(directory), "Netlify build must copy " + directory);
+  }
+  assert.ok(!netlifyConfig.includes("npm run build"), "the static portfolio does not need an application build");
 });
 
 test("Netlify serves baseline security headers", () => {
