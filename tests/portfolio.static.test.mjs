@@ -104,7 +104,12 @@ test("liquid preview choices match the first six wheel projects and all other pr
   assert.equal(cards.length, 12);
   assert.equal(choices.length, 6);
   assert.deepEqual(choices, cardImages);
-  assert.ok(js.includes("Keep the large preview synchronized even for projects beyond the six quick-pick buttons."));
+  assert.ok(js.includes("Keep the large preview synchronized even for projects beyond the six quick-pick buttons.") || js.includes("Every one of the twelve wheel projects drives the same large preview."));
+  assert.ok(js.includes("liquidFallback.setAttribute(\"srcset\", nextSrcset)"), "preview srcset must switch with the selected project");
+  assert.ok(js.includes("liquidFallback.setAttribute(\"sizes\", nextSizes)"), "preview sizes must switch with the selected project");
+  assert.ok(js.includes("}, 5000);"), "the selected project should automatically advance every five seconds");
+  assert.ok(js.includes("projectAutoplayObserver.observe(workSection)"), "auto-advance should run only when Selected Work is in view");
+  assert.ok(js.includes("if (reducedMotion || !workSection || !projectSectionInView || document.hidden"), "autoplay must respect reduced-motion and background tabs");
 });
 
 test("theme and menu controls remain accessible on small screens", () => {
@@ -312,6 +317,17 @@ test("final text accents are present and the obsolete profile code card is remov
   assert.ok(css.includes("--finish-green") && css.includes("--finish-sky") && css.includes("--finish-pink"), "green, sky blue and pink palette tokens are available");
   assert.ok((html.match(/w=3840&amp;q=88 3840w/g) || []).length >= 25, "all 12 projects provide responsive 4K image candidates across their visual previews");
   assert.ok((html.match(/srcset="[^"]*w=3840&amp;q=88 3840w/g) || []).length === 25, "all remote project images define responsive high-resolution source sets");
+});
+
+
+test("Selected Work preview rotates every five seconds and keeps each project's responsive image", () => {
+  assert.ok(js.includes("function syncLiquidPreviewImage(imagePath, sourceImage = null)"));
+  assert.ok(js.includes("const sourceCard = wheelCards.find(card => card.querySelector(\"img\")?.getAttribute(\"src\") === imagePath)"));
+  assert.ok(js.includes("const nextSrcset = image?.getAttribute(\"srcset\") || \"\""));
+  assert.ok(js.includes("projectAutoplayTimeout = window.setTimeout(() =>"));
+  assert.ok(js.includes("selectWheelItem(selectedIndex + 1)"));
+  assert.ok(css.includes(".liquid-showcase > img { filter: saturate(1.12) brightness(.78) contrast(1.04);"), "full-color images should remain vivid in the closer-look preview");
+  assert.ok(css.includes(".detail-open { color: #f5f7f3;"), "Open project details must remain readable on the dark work panel in either theme");
 });
 
 test("Netlify serves baseline security headers", () => {
