@@ -118,7 +118,7 @@ test("theme and menu controls remain accessible on small screens", () => {
 test("CSE image art direction uses coding, AI/ML and space imagery—not electronics imagery", () => {
   assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=72'), "coding laptop background should be efficiently sized");
   assert.ok(css.includes('photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=72'), "AI/ML imagery should be efficiently sized in the skills section");
-  assert.ok(html.includes('src="https://media2.dev.to/dynamic/image/width%3D1600%2Cheight%3D900'), "colorful laptop-and-code artwork should be used in the scroll showcase");
+  assert.ok(html.includes('src="img/coding-among-the-stars.svg"'), "colorful laptop-and-code artwork should be used in the scroll showcase");
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "keep the requested personal portrait");
   assert.ok(css.includes('.hero::before') && css.includes('linear-gradient(105deg, rgba(13, 10, 32, .94)'), "hero must retain a dark readable overlay over coding imagery");
   assert.ok(!/circuit board|electronics engineering|pcb imagery/i.test(css + html), "avoid electronics-focused imagery and language");
@@ -181,7 +181,7 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(css.includes("MAHI / PRISM AURORA INTERACTION LAYER"), "visual refinement block should be present");
   assert.ok(css.includes("images.unsplash.com/photo-1498050108023-c5249f4df085"), "coding laptop background should be present");
   assert.ok(css.includes("images.unsplash.com/photo-1677442136019-21780ecad995"), "AI / ML visual background should be present");
-  assert.ok(html.includes("media2.dev.to/dynamic/image/width%3D1600%2Cheight%3D900"), "colorful laptop-and-code image should be present in the scroll showcase");
+  assert.ok(html.includes('src="img/coding-among-the-stars.svg"'), "colorful laptop-and-code image should be present in the scroll showcase");
   assert.ok(/background-image:\s*radial-gradient/.test(css), "atmospheric color layers should be present");
   assert.ok(css.includes("@keyframes auroraFloat") && css.includes("@keyframes spectrumFlow"), "ambient and headline animations should exist");
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
