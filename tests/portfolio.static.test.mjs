@@ -255,3 +255,10 @@ test("Netlify canonical metadata, lightweight backgrounds and named interactive 
   assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=72'), "coding background uses a lower transfer size");
   assert.ok(css.includes('photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=72'), "AI background uses a lower transfer size");
 });
+
+test("accent hover states use the theme-aware foreground token", () => {
+  assert.ok(css.includes(".icon-button:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);"), "icon buttons keep readable contrast on accent backgrounds");
+  assert.ok(css.includes(".button-dark:hover { background: var(--accent); color: var(--accent-ink); }"), "primary CTA hover text uses the accent foreground");
+  assert.ok(css.includes(".liquid-choice:hover, .liquid-choice.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }"), "preview controls use readable hover/active colors");
+  assert.ok(html.includes('id="projectGallery" role="region" aria-label="Visual gallery of six software projects"'), "project gallery is a named region");
+});
