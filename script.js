@@ -131,10 +131,6 @@
   const progressBar = $("#scrollProgress");
   const backToTop = $("#backToTop");
   const expandFrame = $("#expandFrame");
-  const journeyWrap = $("#journeyWrap");
-  const journeyTrack = $("#journeyTrack");
-  const journeyProgress = $("#journeyProgress");
-  const journeyProgressLabel = $("#journeyProgressLabel");
   const navLinks = $$("#mainNav a");
   const navTargets = navLinks.map(link => $(link.getAttribute("href"))).filter(Boolean);
   let scrollTicking = false;
@@ -171,15 +167,6 @@
       }
     }
 
-    if (journeyWrap && journeyTrack && window.innerWidth > 760 && !reducedMotion) {
-      const rect = journeyWrap.getBoundingClientRect();
-      const distance = Math.max(1, journeyWrap.offsetHeight - window.innerHeight);
-      const t = clamp(-rect.top / distance);
-      const maxX = Math.max(0, journeyTrack.scrollWidth - window.innerWidth);
-      journeyTrack.style.transform = "translate3d(" + (-maxX * t).toFixed(1) + "px,0,0)";
-      if (journeyProgress) journeyProgress.style.width = (t * 100).toFixed(1) + "%";
-      if (journeyProgressLabel) journeyProgressLabel.textContent = String(Math.min(3, Math.floor(t * 3) + 1)).padStart(2, "0") + " / 03";
-    }
     scrollTicking = false;
   }
   const requestScrollUpdate = () => {
@@ -223,13 +210,20 @@
     });
   }
 
-  // Project wheel: 6-face CSS 3D cylinder with keyboard, buttons, pointer-drag and click selection.
+  const liquidShowcase = $("#liquidShowcase");
+  const liquidCanvas = $("#liquidCanvas");
+  const liquidFallback = $("#liquidFallback");
+  const liquidLabel = $("#liquidLabel");
+  const liquidChoices = $(".liquid-choice");
+  let changeLiquidImage = null;
+  // Project wheel: responsive CSS 3D cylinder with pointer-drag, buttons and keyboard navigation.
   const wheelViewport = $("#wheelViewport");
   const projectWheel = $("#projectWheel");
   const wheelCards = $$(".wheel-card", projectWheel || document);
   const prevButton = $("#wheelPrev");
   const nextButton = $("#wheelNext");
   const workIndex = $("#workIndex");
+  const workTotal = $("#workTotal");
   const selectedTitle = $("#selectedProjectTitle");
   const selectedDescription = $("#selectedProjectDescription");
   const selectedStack = $("#selectedProjectStack");
@@ -245,15 +239,21 @@
   function updateWheelRadius() {
     if (!projectWheel || !wheelCards.length) return;
     const viewportWidth = wheelViewport?.clientWidth || window.innerWidth;
-    const radius = viewportWidth < 420 ? 238 : viewportWidth < 760 ? 265 : viewportWidth < 1100 ? 310 : 345;
+    const cardWidth = viewportWidth < 420 ? 232 : viewportWidth < 760 ? 250 : 300;
+    const angleStep = 360 / Math.max(1, wheelCards.length);
+    // Place the card corners beside one another instead of overlapping six fixed faces.
+    const radius = Math.ceil((cardWidth / 2) / Math.tan(Math.PI / Math.max(3, wheelCards.length)) + 18);
+    projectWheel.style.setProperty("--wheel-angle-step", angleStep + "deg");
     wheelCards.forEach((card, index) => {
-      card.style.transform = "translate(-50%,-50%) rotateY(" + (index * 60) + "deg) translateZ(" + radius + "px)";
+      card.style.transform = "translate(-50%,-50%) rotateY(" + (index * angleStep) + "deg) translateZ(" + radius + "px)";
     });
     renderWheel();
   }
   function renderWheel() {
     if (!projectWheel || !wheelCards.length) return;
-    projectWheel.style.transform = "translate(-50%,-50%) rotateY(" + (-selectedIndex * 60) + "deg)";
+    const angleStep = 360 / Math.max(1, wheelCards.length);
+    projectWheel.style.transform = "translate(-50%,-50%) rotateY(" + (-selectedIndex * angleStep) + "deg)";
+    if (workTotal) workTotal.textContent = String(wheelCards.length).padStart(2, "0");
     wheelCards.forEach((card, index) => {
       const isActive = index === selectedIndex;
       card.classList.toggle("active", isActive);
@@ -273,8 +273,19 @@
           selectedStack.append(span);
         });
       }
-      const previewChoice = $(".liquid-choice[data-image='" + (active.querySelector("img")?.getAttribute("src") || "") + "']");
-      if (previewChoice && !previewChoice.classList.contains("active")) chooseLiquidImage(previewChoice);
+      const activeImage = active.querySelector("img")?.getAttribute("src") || "";
+      const previewChoice = liquidChoices.find(choice => choice.dataset.image === activeImage);
+      if (previewChoice) {
+        if (!previewChoice.classList.contains("active")) chooseLiquidImage(previewChoice);
+      } else if (activeImage) {
+        // Keep the large preview synchronized even for projects beyond the six quick-pick buttons.
+        liquidChoices.forEach(choice => choice.classList.remove("active"));
+        if (liquidFallback && liquidFallback.getAttribute("src") !== activeImage) {
+          liquidFallback.src = activeImage;
+          if (changeLiquidImage) changeLiquidImage(activeImage);
+        }
+        if (liquidLabel) liquidLabel.textContent = (active.dataset.title || "PROJECT").toUpperCase() + " / PROJECT " + String(selectedIndex + 1).padStart(2, "0");
+      }
     }
   }
   function selectWheelItem(index, open = false) {
@@ -364,12 +375,18 @@
       button.setAttribute("aria-pressed", String(isActive));
     });
     if (galleryResultCount) {
-      galleryResultCount.textContent = "SHOWING " + String(visibleCount).padStart(2, "0") + " / 06 BUILDS";
+      galleryResultCount.textContent = "SHOWING " + String(visibleCount).padStart(2, "0") + " / " + String(galleryCards.length).padStart(2, "0") + " BUILDS";
     }
     const gallery = $("#projectGallery");
     if (gallery) {
-      const label = filter === "all" ? "all software projects" : filter === "product" ? "web and product projects" : filter === "ai" ? "AI and machine-learning projects" : "generative AI and developer-tool projects";
-      gallery.setAttribute("aria-label", "Showing " + visibleCount + " of 6 projects: " + label);
+      const labels = {
+        all: "all software projects",
+        product: "web and product projects",
+        ai: "AI and machine-learning projects",
+        genai: "generative AI and developer-tool projects",
+        data: "SQL and data analytics projects"
+      };
+      gallery.setAttribute("aria-label", "Showing " + visibleCount + " of " + galleryCards.length + " projects: " + (labels[filter] || labels.all));
     }
   };
   galleryFilters.forEach(button => {
@@ -476,9 +493,24 @@
   $$("[data-close-modal]", projectModal || document).forEach(el => el.addEventListener("click", closeProjectModal));
   openDetailButton?.addEventListener("click", () => openProjectModal(wheelCards[selectedIndex]));
   document.addEventListener("keydown", event => {
+    // Page-wide arrow navigation is active only while the project section is in view.
+    // Do not steal arrows from text fields, range/select controls, or an open modal.
+    if (!event.defaultPrevented && !projectModal?.classList.contains("is-open") &&
+        (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+      const target = event.target;
+      const typingTarget = target instanceof HTMLElement &&
+        (target.isContentEditable || target.matches("input, textarea, select, [contenteditable='true']"));
+      const workSection = $("#work");
+      const workRect = workSection?.getBoundingClientRect();
+      const workIsVisible = workRect && workRect.bottom > 0 && workRect.top < window.innerHeight;
+      if (!typingTarget && workIsVisible && wheelCards.length) {
+        event.preventDefault();
+        selectWheelItem(selectedIndex + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    }
     if (event.key === "Escape") closeProjectModal();
     if (!projectModal?.classList.contains("is-open") || event.key !== "Tab") return;
-    const focusables = $$("button,a[href],[tabindex='0']", projectModal).filter(el => !el.disabled);
+    const focusables = $("button,a[href],[tabindex='0']", projectModal).filter(el => !el.disabled);
     if (!focusables.length) return;
     const first = focusables[0], last = focusables[focusables.length - 1];
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
@@ -486,12 +518,6 @@
   });
 
   // Liquid preview: native image fallback remains visible if WebGL/CDN is unavailable.
-  const liquidShowcase = $("#liquidShowcase");
-  const liquidCanvas = $("#liquidCanvas");
-  const liquidFallback = $("#liquidFallback");
-  const liquidLabel = $("#liquidLabel");
-  const liquidChoices = $$(".liquid-choice");
-  let changeLiquidImage = null;
   function chooseLiquidImage(button) {
     const imagePath = button?.dataset.image;
     if (!imagePath) return;
