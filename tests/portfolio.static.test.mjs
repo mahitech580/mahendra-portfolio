@@ -269,3 +269,11 @@ test("WebGL preview loads lazily near its section instead of during initial page
   assert.ok(js.includes("liquidLoadObserver.disconnect();"), "WebGL initialization cannot be triggered repeatedly");
   assert.ok(js.includes("startLiquidPreview();"), "WebGL still initializes when in view or IntersectionObserver is unsupported");
 });
+
+test("AI Catalog discovery document is valid and matches the services offered", async () => {
+  assert.ok(html.includes('<link rel="ai-catalog" href=".well-known/ai-catalog.json" type="application/ai-catalog+json">'), "home page should advertise the AI Catalog");
+  const catalog = JSON.parse(await read(".well-known/ai-catalog.json"));
+  assert.equal(catalog.specVersion, "1.0", "AI Catalog spec version should be declared");
+  assert.equal(catalog.host.displayName, "Mahi / Dev", "AI Catalog host should be identified");
+  assert.deepEqual(catalog.entries, [], "do not advertise AI agents or tools that this portfolio does not actually host");
+});

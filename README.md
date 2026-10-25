@@ -25,6 +25,7 @@ The portfolio uses an independent monochrome editorial system: oversized typogra
 - **Responsive capability cards, technology chips, education, certifications and internship highlights.**
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.
 - **Contact form delivered through Formspree** to the recipient configured in the Formspree account.
+- **Machine-readable discovery:** `robots.txt`, `sitemap.xml`, `llms.txt`, and a minimal AI Catalog at `.well-known/ai-catalog.json`; the catalog is empty because this site does not host its own AI agents or tools.
 
 
 ## Illustrative cover-image sources
