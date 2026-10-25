@@ -1489,3 +1489,76 @@ html[data-theme="dark"] {
   }
   .gallery-heading:hover h3 .lets-build { transform: none; }
 }
+
+
+/* Final headline accents: distinct, colorful, and theme-aware. */
+:root {
+  --finish-green: #16834a;
+  --finish-red: #cf3e5d;
+  --finish-sky: #087eae;
+  --finish-pink: #be397c;
+}
+html[data-theme="dark"] {
+  --finish-green: #4ade80;
+  --finish-red: #fb7185;
+  --finish-sky: #7dd3fc;
+  --finish-pink: #f9a8d4;
+}
+.skills-heading h2 {
+  color: var(--finish-sky);
+  text-shadow: 0 0 18px rgba(8,126,174,.08);
+  transition: color .25s, text-shadow .25s;
+}
+.skills-heading h2 em {
+  color: var(--finish-green);
+  text-shadow: 0 0 20px rgba(22,131,74,.12);
+  transition: color .25s, text-shadow .25s;
+}
+.skills-heading:hover h2 { color: var(--finish-pink); }
+.skills-heading:hover h2 em {
+  color: var(--finish-sky);
+  text-shadow: -2px 0 10px rgba(207,62,93,.15), 2px 0 16px rgba(8,126,174,.18);
+}
+.work-heading h2 em {
+  color: var(--finish-sky);
+  text-shadow: 0 0 20px rgba(8,126,174,.12);
+  transition: color .25s, text-shadow .25s;
+}
+.work-heading:hover h2 em {
+  color: var(--finish-pink);
+  text-shadow: -2px 0 10px rgba(207,62,93,.16), 2px 0 16px rgba(8,126,174,.18);
+}
+.contact-copy h2 em {
+  color: var(--finish-green);
+  text-shadow: 0 0 18px rgba(22,131,74,.12);
+  transition: color .25s, text-shadow .25s;
+}
+.contact-copy:hover h2 em {
+  color: var(--finish-pink);
+  text-shadow: -2px 0 10px rgba(207,62,93,.16), 2px 0 16px rgba(8,126,174,.18);
+}
+.gallery-heading h3 .different-problems {
+  color: var(--finish-green);
+  text-shadow: 0 0 20px rgba(22,131,74,.13);
+}
+.gallery-heading h3 .lets-build {
+  color: var(--finish-sky);
+  text-shadow: 0 0 18px rgba(8,126,174,.13);
+  transition: color .25s, text-shadow .25s, transform .25s;
+}
+.gallery-heading:hover h3 .different-problems {
+  color: var(--finish-green);
+  text-shadow: -2px 0 10px rgba(207,62,93,.17), 2px 0 16px rgba(8,126,174,.19), 0 0 21px rgba(22,131,74,.15);
+}
+.gallery-heading:hover h3 .lets-build {
+  color: var(--finish-pink);
+  text-shadow: -2px 0 10px rgba(207,62,93,.2), 2px 0 16px rgba(8,126,174,.22), 0 0 23px rgba(190,57,124,.17);
+  transform: translateX(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-heading h2, .skills-heading h2 em, .work-heading h2 em,
+  .contact-copy h2 em, .gallery-heading h3 .lets-build {
+    transition: none !important;
+  }
+  .gallery-heading:hover h3 .lets-build { transform: none; }
+}
