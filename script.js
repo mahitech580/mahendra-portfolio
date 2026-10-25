@@ -27,7 +27,7 @@
         if (!container.querySelector("img.image-unavailable")) container.classList.remove("image-failed");
       });
   };
-  $("img").forEach(image => {
+  $$("img").forEach(image => {
     image.addEventListener("error", () => {
       // Netlify Image CDN sources are used in production, while local preview
       // and GitHub Pages should fall back to the original local image.
