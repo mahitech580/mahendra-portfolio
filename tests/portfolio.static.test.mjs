@@ -285,3 +285,11 @@ test("Netlify serves baseline security headers", () => {
   assert.ok(headers.includes("Referrer-Policy: strict-origin-when-cross-origin"), "cross-origin links should not expose full path referrers");
   assert.ok(headers.includes("Permissions-Policy: camera=(), microphone=(), geolocation=()"), "unused sensitive browser capabilities should be disabled");
 });
+
+test("mobile form text, controls and compact labels remain readable", () => {
+  assert.ok(css.includes(".theme-toggle, .menu-toggle { width: 44px; height: 44px; }"), "mobile navigation controls should meet a 44px tap target");
+  assert.ok(css.includes(".gallery-filter { min-height: 44px; }"), "project filters should meet a 44px tap target");
+  assert.ok(css.includes(".contact-form input, .contact-form textarea { font-size: 1rem; }"), "mobile form fields should avoid iOS focus zoom");
+  assert.ok(css.includes(".contact-form input { min-height: 48px; }"), "mobile form fields should be comfortably tappable");
+  assert.ok(css.includes(".education-item p, .cert-row > span:nth-child(3) { font-size: .78rem; }"), "mobile education details should not be tiny");
+});

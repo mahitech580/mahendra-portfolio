@@ -248,3 +248,25 @@ test("reduced-motion preference keeps essential content visible", async ({ brows
   await expect(page.locator("#journeyTrack")).toBeVisible();
   await context.close();
 });
+
+test("mobile form fields avoid Safari auto-zoom and primary controls have usable tap targets", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const theme = page.locator("#themeToggle");
+  const menu = page.locator("#menuToggle");
+  for (const control of [theme, menu]) {
+    const box = await control.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+  const filter = page.locator(".gallery-filter").first();
+  const filterBox = await filter.boundingBox();
+  expect(filterBox?.height).toBeGreaterThanOrEqual(44);
+  await page.locator("#contact").scrollIntoViewIfNeeded();
+  for (const field of [page.locator('.contact-form input[name="name"]'), page.locator('.contact-form input[name="email"]'), page.locator('.contact-form textarea[name="message"]')]) {
+    await expect(field).toBeVisible();
+    const size = await field.evaluate(el => Number.parseFloat(getComputedStyle(el).fontSize));
+    expect(size).toBeGreaterThanOrEqual(16);
+  }
+  const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
+  expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport);
+});

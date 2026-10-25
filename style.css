@@ -1012,3 +1012,26 @@ html[data-theme="dark"] #education {
   .project-gallery-card:hover, .project-gallery-card:focus-visible { transform: none; }
 }
 
+
+
+/* Mobile usability: readable form controls and reliable tap targets. */
+@media (max-width: 760px) {
+  .theme-toggle, .menu-toggle { width: 44px; height: 44px; }
+  .gallery-filter { min-height: 44px; }
+  .contact-form input, .contact-form textarea { font-size: 1rem; }
+  .contact-form input { min-height: 48px; }
+  .contact-form textarea { min-height: 140px; }
+  .section-kicker { font-size: .58rem; }
+  .hero-topline, .hero-foot { font-size: .58rem; }
+  .hero-tag { font-size: .58rem; }
+  .journey-panel-copy p { font-size: .82rem; }
+  .education-item p, .cert-row > span:nth-child(3) { font-size: .78rem; }
+  .education-item > .mono { font-size: .56rem; }
+  .wheel-hint { font-size: .58rem; }
+  .liquid-showcase-top, .liquid-showcase-bottom { font-size: .55rem; }
+  .liquid-choice { font-size: .56rem; }
+}
+@media (max-width: 420px) {
+  .hero-tag { font-size: .55rem; }
+  .project-gallery-summary { font-size: .8rem; }
+}
