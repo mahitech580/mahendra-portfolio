@@ -140,11 +140,46 @@ test("horizontal drag rotates the wheel without opening a project", async ({ pag
   await expect(page.locator("#projectModal")).not.toHaveClass(/is-open/);
 });
 
-test("liquid preview selection stays synchronized with project details", async ({ page }) => {
+test("liquid preview selection stays synchronized with each project's image, responsive sources, and details", async ({ page }) => {
+  await page.locator("#work").scrollIntoViewIfNeeded();
   await page.getByRole("button", { name: "Preview Crop Yield Prediction" }).click();
   await expect(page.locator("#liquidLabel")).toHaveText("CROP YIELD PREDICTION / PROJECT 05");
   await expect(page.locator("#workIndex")).toHaveText("05");
   await expect(page.locator("#selectedProjectTitle")).toHaveText("Crop Yield Prediction");
+  const preview = page.locator("#liquidFallback");
+  await expect(preview).toHaveAttribute("src", /photo-1500382017468-9049fed747ef/);
+  await expect(preview).toHaveAttribute("srcset", /photo-1500382017468-9049fed747ef[^,]*w=3840/);
+
+  // Advance past the six quick choices; the large preview must switch away from the old image too.
+  for (let index = 0; index < 5; index += 1) await page.locator("#wheelNext").click();
+  await expect(page.locator("#workIndex")).toHaveText("10");
+  await expect(page.locator("#selectedProjectTitle")).toHaveText("Banking & Financial Transaction Management");
+  await expect(preview).toHaveAttribute("src", /photo-1563013544-824ae1b704d3/);
+  await expect(preview).toHaveAttribute("srcset", /photo-1563013544-824ae1b704d3[^,]*w=3840/);
+  await expect(page.locator("#liquidLabel")).toHaveText("BANKING & FINANCIAL TRANSACTION MANAGEMENT / PROJECT 10");
+});
+
+test("Selected Work preview automatically advances after five seconds", async ({ page }) => {
+  await page.locator("#work").scrollIntoViewIfNeeded();
+  await expect(page.locator("#workIndex")).toHaveText("01");
+  await expect(page.locator("#liquidLabel")).toHaveText("AVERIS / PROJECT 01");
+  await page.waitForTimeout(5_250);
+  await expect(page.locator("#workIndex")).toHaveText("02", { timeout: 2_000 });
+  await expect(page.locator("#selectedProjectTitle")).toHaveText("TripPilot");
+  await expect(page.locator("#liquidFallback")).toHaveAttribute("src", /photo-1464822759023-fed622ff2c3b/);
+});
+
+test("Open project details action remains readable in both themes", async ({ page }) => {
+  await page.locator("#work").scrollIntoViewIfNeeded();
+  const themeToggle = page.locator("#themeToggle");
+  if (await page.locator("html").getAttribute("data-theme") !== "dark") await themeToggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  const detail = page.locator("#openProjectDetail");
+  const darkColor = await detail.evaluate(el => getComputedStyle(el).color);
+  expect(darkColor).toBe("rgb(245, 247, 243)");
+  await themeToggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect.poll(() => detail.evaluate(el => getComputedStyle(el).color)).toBe(darkColor);
 });
 
 test("remote cover failures show designed placeholders", async ({ page }) => {
