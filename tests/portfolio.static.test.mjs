@@ -70,15 +70,21 @@ test("all local HTML assets exist and no stale script references remain", async 
   assert.ok(html.includes('href="style.css"'));
 });
 
-test("all six project cards link to their individual source repositories", () => {
-  assert.equal(cards.length, 6, "expected exactly six project cards");
+test("all twelve project cards link to their individual source repositories", () => {
+  assert.equal(cards.length, 12, "expected twelve project cards");
   const expected = new Map([
     ["AVERIS", "https://github.com/mahitech580/averis"],
     ["TripPilot", "https://github.com/mahitech580/TripPilot-Travel-Planner"],
     ["Deepfake Video Detection", "https://github.com/mahitech580/deepfake-video-detection"],
     ["NodeAI Studio", "https://github.com/mahitech580/NodeAI-Studio"],
     ["Crop Yield Prediction", "https://github.com/mahitech580/crop-yield-predictor"],
-    ["VoxGenAI", "https://github.com/mahitech580/VoxGen-AI"]
+    ["VoxGenAI", "https://github.com/mahitech580/VoxGen-AI"],
+    ["StockFlow", "https://github.com/mahitech580/StockFlow"],
+    ["DataVision Intelligence", "https://github.com/mahitech580/DataVision-Intelligence"],
+    ["CINEPLAY — AI Movie Recommender", "https://github.com/mahitech580/AI-Movie-Recommender"],
+    ["Banking & Financial Transaction Management", "https://github.com/mahitech580/Banking-Financial-Transaction-Management-MySQL"],
+    ["LastMileIQ SQL", "https://github.com/mahitech580/LastMileIQ-SQL"],
+    ["AI Resume Analyzer", "https://github.com/mahitech580/AI-Resume-Analyzer"]
   ]);
   for (const card of cards) {
     const title = attr(card, "data-title");
@@ -87,16 +93,18 @@ test("all six project cards link to their individual source repositories", () =>
   }
 });
 
-test("liquid preview choices match project-card image URLs", () => {
-  const cardImages = cards.map(card => {
-    const image = card.match(/<img\b[^>]*>/);
+test("liquid preview choices match the first six wheel projects and all other projects sync dynamically", () => {
+  const cardImages = cards.slice(0, 6).map(card => {
+    const image = card.match(/<img\\b[^>]*>/);
     assert.ok(image, "project card image missing");
     return normalized(attr(image[0], "src"));
   });
-  const choices = [...html.matchAll(/<button\b[^>]*\bclass="[^"]*\bliquid-choice\b[^"]*"[^>]*>/g)]
+  const choices = [...html.matchAll(/<button\\b[^>]*\\bclass="[^"]*\\bliquid-choice\\b[^"]*"[^>]*>/g)]
     .map(match => normalized(attr(match[0], "data-image")));
+  assert.equal(cards.length, 12);
   assert.equal(choices.length, 6);
   assert.deepEqual(choices, cardImages);
+  assert.ok(js.includes("Keep the large preview synchronized even for projects beyond the six quick-pick buttons."));
 });
 
 test("theme and menu controls remain accessible on small screens", () => {
@@ -154,11 +162,11 @@ test("small text and keyboard focus on dark sections remain readable", () => {
   assert.ok(css.includes(".journey-section :focus-visible,") && css.includes(".work-section :focus-visible,") && css.includes(".contact-section :focus-visible { outline-color: var(--accent); }"), "dark sections need a high-contrast focus ring");
 });
 
-test("image-first project atlas includes six projects and preserves the requested portrait", () => {
-  const gallery = [...html.matchAll(/<button class="project-gallery-card\b[^"]*"[^>]*data-project-index="(\d+)"[^>]*>[\s\S]*?<\/button>/g)];
-  assert.equal(gallery.length, 6, "expected six visual case-file cards");
-  assert.deepEqual(gallery.map(match => Number(match[1])), [0, 1, 2, 3, 4, 5]);
-  for (const name of ["AVERIS", "TripPilot", "Deepfake Detection", "NodeAI Studio", "Crop Yield Prediction", "VoxGenAI"]) {
+test("image-first project atlas includes all twelve projects and preserves the requested portrait", () => {
+  const gallery = [...html.matchAll(/<button class="project-gallery-card\\b[^"]*"[^>]*data-project-index="(\\d+)"[^>]*>[\\s\\S]*?<\\/button>/g)];
+  assert.equal(gallery.length, 12, "expected twelve visual case-file cards");
+  assert.deepEqual(gallery.map(match => Number(match[1])), Array.from({ length: 12 }, (_, index) => index));
+  for (const name of ["AVERIS", "TripPilot", "Deepfake Video Detection", "NodeAI Studio", "Crop Yield Prediction", "VoxGenAI", "StockFlow", "DataVision Intelligence", "CINEPLAY", "Banking &amp; Financial Transaction Management", "LastMileIQ SQL", "AI Resume Analyzer"]) {
     assert.ok(gallery.some(match => match[0].includes(name)), "missing gallery project " + name);
   }
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "requested personal portrait must remain unchanged");
@@ -179,10 +187,10 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
   assert.ok(js.includes('style.setProperty("--pointer-x"') && js.includes('style.setProperty("--pointer-y"'), "pointer lighting should follow the visitor");
   assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"), "motion preferences must be honored");
-  assert.ok(html.includes("cdn.dribbble.com/userupload/47214616/file/d2f301ad8d0b7b873750944d54a86394.png"));
-  assert.ok(html.includes("cdn.dribbble.com/userupload/46846817/file/0b9f85b7b940bdbd3ea2661952772384.png"));
-  assert.ok(html.includes("orbixhub.com/assets/images/platform-dashboard.jpg"));
-  assert.ok(html.includes("staging.media.fairstack.ai/image/8f9d83db-5c6f-4904-a967-6f4b93cf6f6b/81be99f4-25ba-4a1c-896d-0ff4d209deb4.png"));
+  assert.ok(html.includes("photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "healthcare project uses matching artwork");
+  assert.ok(html.includes("photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "travel project uses matching artwork");
+  assert.ok(html.includes("photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "crop prediction project uses matching artwork");
+  assert.ok(html.includes("photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=960&amp;q=78"), "voice AI project uses matching artwork");
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "personal portrait must remain the requested image");
 });
 
@@ -197,16 +205,18 @@ test("the personal portrait stays still when the pointer moves", () => {
   assert.ok(/\.hero-portrait,\s*\.hero-visual:hover \.hero-portrait\s*\{\s*transform:\s*none !important;/.test(css), "portrait transforms should be disabled on hover");
 });
 
-test("project archive filters and counts are wired to six categorized cards", () => {
+test("project archive filters and counts are wired to twelve categorized cards", () => {
   const filterButtons = [...html.matchAll(/<button class="gallery-filter[^"]*"[^>]*data-filter="([^"]+)"/g)];
-  assert.deepEqual(filterButtons.map(match => match[1]), ["all", "product", "ai", "genai"]);
-  assert.equal((html.match(/data-filter-category="product"/g) || []).length, 2);
-  assert.equal((html.match(/data-filter-category="ai"/g) || []).length, 2);
+  assert.deepEqual(filterButtons.map(match => match[1]), ["all", "product", "ai", "genai", "data"]);
+  assert.equal((html.match(/data-filter-category="product"/g) || []).length, 3);
+  assert.equal((html.match(/data-filter-category="ai"/g) || []).length, 5);
   assert.equal((html.match(/data-filter-category="genai"/g) || []).length, 2);
+  assert.equal((html.match(/data-filter-category="data"/g) || []).length, 2);
   assert.ok(html.includes('id="galleryResultCount" aria-live="polite"'));
   assert.ok(js.includes("const applyGalleryFilter = filter =>"));
   assert.ok(js.includes('card.hidden = !isVisible;'));
   assert.ok(js.includes('button.setAttribute("aria-pressed", String(isActive))'));
+  assert.ok(js.includes('event.key === "ArrowLeft" || event.key === "ArrowRight"'), "global arrow controls need both directions");
 });
 
 test("floating return-to-top control is accessible and scroll-aware", () => {
@@ -276,6 +286,20 @@ test("AI Catalog discovery document is valid and matches the services offered", 
   assert.equal(catalog.specVersion, "1.0", "AI Catalog spec version should be declared");
   assert.equal(catalog.host.displayName, "Mahi / Dev", "AI Catalog host should be identified");
   assert.deepEqual(catalog.entries, [], "do not advertise AI agents or tools that this portfolio does not actually host");
+});
+
+
+test("journey is a normal vertical narrative and arrow navigation is page-wide only in the projects section", () => {
+  assert.ok(html.includes('class="journey-timeline" aria-label="Education and software development journey"'));
+  assert.ok(!html.includes('id="journeyWrap"') && !html.includes('id="journeyTrack"'), "the page should no longer pin and horizontally hijack scroll");
+  assert.ok(!js.includes("const journeyWrap") && !js.includes("const journeyTrack"));
+  assert.ok(js.includes("const cardWidth = viewportWidth < 420 ? 232 : viewportWidth < 760 ? 250 : 300"));
+  assert.ok(js.includes("360 / Math.max(1, wheelCards.length)"));
+  assert.ok(html.includes('href="https://www.hackerrank.com/certificates/153885a40705"'));
+  assert.ok(html.includes('href="https://www.hackerrank.com/certificates/8e56fb1305d7"'));
+  assert.ok(html.includes('href="https://www.hackerrank.com/certificates/31135fdb6019"'));
+  assert.ok(html.includes('href="https://www.hackerrank.com/certificates/01694c7a5393"'));
+  assert.ok(html.includes("8.20 CGPA · Graduate 2026"));
 });
 
 test("Netlify serves baseline security headers", () => {
