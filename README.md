@@ -46,7 +46,7 @@ The 12 cards link to their matching public repositories. Live links are only sho
 11. **LastMileIQ SQL** — PostgreSQL delivery and route analytics.
 12. **AI Resume Analyzer** — document extraction and job-description skill matching.
 
-Cover images use topic-related photos from [Unsplash](https://unsplash.com/license). They establish visual context and are not screenshots from Mahi's actual deployments.
+These are illustrative references, not screenshots from Mahi's actual deployments. Cover images use topic-related photos from [Unsplash](https://unsplash.com/license) to establish visual context.
 
 ## Tech
 
