@@ -1276,3 +1276,9 @@ html[data-theme="dark"] #education {
   .journey-story, .project-wheel, .wheel-buttons .icon-button { transition: none !important; }
   .journey-item:hover .journey-story { transform: none; }
 }
+
+
+/* Every card in the expanded archive must stay in the single mobile grid column. */
+@media (max-width: 760px) {
+  .project-gallery-card { grid-column: 1; }
+}
