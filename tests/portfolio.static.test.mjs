@@ -259,7 +259,7 @@ test("Netlify canonical metadata, lightweight backgrounds and named interactive 
   assert.ok(html.includes('<link rel="canonical" href="https://mahendrasai.netlify.app/">'), "Netlify is the canonical production URL");
   assert.ok(html.includes('<meta property="og:url" content="https://mahendrasai.netlify.app/">'), "Open Graph URL matches production");
   assert.ok(html.includes('class="ticker" role="img" aria-label="Areas of focus:'), "decorative ticker has a valid accessible name");
-  assert.ok(html.includes('class="tech-cloud reveal" role="group" aria-label="Technology list"'), "technology cloud is a labelled group");
+  assert.ok(html.includes('class="tech-cloud reveal" role="group" aria-label="Technology and engineering skills"'), "technology cloud is a labelled group");
   assert.ok(html.includes('id="wheelViewport" tabindex="0" role="region" aria-label="Interactive 3D project wheel.'), "keyboard project wheel has a named region");
   assert.ok(html.includes('data-live="https://averis-saas.netlify.app/"'), "Averis points to its current Netlify deployment");
   assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=72'), "coding background uses a lower transfer size");
@@ -270,7 +270,7 @@ test("accent hover states use the theme-aware foreground token", () => {
   assert.ok(css.includes(".icon-button:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);"), "icon buttons keep readable contrast on accent backgrounds");
   assert.ok(css.includes(".button-dark:hover { background: var(--accent); color: var(--accent-ink); }"), "primary CTA hover text uses the accent foreground");
   assert.ok(css.includes(".liquid-choice:hover, .liquid-choice.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }"), "preview controls use readable hover/active colors");
-  assert.ok(html.includes('id="projectGallery" role="region" aria-label="Visual gallery of six software projects"'), "project gallery is a named region");
+  assert.ok(html.includes('id="projectGallery" role="region" aria-label="Visual gallery of twelve software projects"'), "project gallery is a named region");
 });
 
 test("WebGL preview loads lazily near its section instead of during initial page startup", () => {
