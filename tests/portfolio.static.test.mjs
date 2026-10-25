@@ -187,10 +187,10 @@ test("prismatic art direction includes colorful image backgrounds and scroll-poi
   assert.ok(js.includes('style.setProperty("--scroll-drift"'), "scrolling should animate the hero backdrop");
   assert.ok(js.includes('style.setProperty("--pointer-x"') && js.includes('style.setProperty("--pointer-y"'), "pointer lighting should follow the visitor");
   assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"), "motion preferences must be honored");
-  assert.ok(html.includes("photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "healthcare project uses matching artwork");
-  assert.ok(html.includes("photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "travel project uses matching artwork");
-  assert.ok(html.includes("photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "crop prediction project uses matching artwork");
-  assert.ok(html.includes("photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=1440&amp;q=82"), "voice AI project uses matching artwork");
+  assert.ok(html.includes("photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=3840&amp;q=88 3840w"), "healthcare project offers 4K artwork");
+  assert.ok(html.includes("photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=3840&amp;q=88 3840w"), "travel project offers 4K artwork");
+  assert.ok(html.includes("photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=3840&amp;q=88 3840w"), "crop prediction project offers 4K artwork");
+  assert.ok(html.includes("photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=3840&amp;q=88 3840w"), "voice AI project offers 4K artwork");
   assert.ok(html.includes('src="img/Professional%20Portrait%20in%20a%20Modern%20Office.png"'), "personal portrait must remain the requested image");
 });
 
@@ -300,6 +300,18 @@ test("journey is a normal vertical narrative and arrow navigation is page-wide o
   assert.ok(html.includes('href="https://www.hackerrank.com/certificates/31135fdb6019"'));
   assert.ok(html.includes('href="https://www.hackerrank.com/certificates/01694c7a5393"'));
   assert.ok(html.includes("8.20 CGPA · Graduate 2026"));
+});
+
+
+test("final text accents are present and the obsolete profile code card is removed", () => {
+  assert.ok(!html.includes("PROFILE.JSON"), "remove PROFILE.JSON label");
+  assert.ok(!html.includes('class="code-sticker"'), "remove the full builder code sticker");
+  assert.ok(html.includes('class="different-problems"') && html.includes('class="lets-build"'), "project archive heading remains present");
+  assert.ok(css.includes(".skills-heading h2 em") && css.includes(".work-heading h2 em"), "stack and opening text accents are styled");
+  assert.ok(css.includes(".contact-copy h2 em"), "contact Let's build text has a color treatment");
+  assert.ok(css.includes("--finish-green") && css.includes("--finish-sky") && css.includes("--finish-pink"), "green, sky blue and pink palette tokens are available");
+  assert.ok((html.match(/w=3840&amp;q=88 3840w/g) || []).length >= 25, "all 12 projects provide responsive 4K image candidates across their visual previews");
+  assert.ok((html.match(/srcset="[^"]*w=3840&amp;q=88 3840w/g) || []).length === 25, "all remote project images define responsive high-resolution source sets");
 });
 
 test("Netlify serves baseline security headers", () => {
