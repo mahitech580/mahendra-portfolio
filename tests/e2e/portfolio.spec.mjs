@@ -152,6 +152,9 @@ test("remote cover failures show designed placeholders", async ({ page }) => {
   await cover.evaluate(image => new Promise(resolve => {
     image.addEventListener("error", resolve, { once: true });
     image.loading = "eager";
+    // Clear responsive candidates so the intentionally broken src is the only candidate.
+    image.removeAttribute("srcset");
+    image.removeAttribute("sizes");
     image.src = "/__intentional_missing_cover_test__.png";
   }));
   const card = page.locator('#projectWheel .wheel-card[data-index="0"]');
