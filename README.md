@@ -20,7 +20,7 @@ The portfolio uses an independent monochrome editorial system: oversized typogra
 - **Interactive 3D project wheel** with mouse/touch drag, previous/next controls, keyboard support and selected-project details.
 - **Image-first project atlas** with six asymmetrical editorial cards, curated online visuals, subtle hover depth, responsive layouts and one-click links into the matching project detail modal.
 - **Project inspection modal** with live/source links, focus handling and Escape-to-close behavior.
-- **Optional OGL/WebGL liquid preview** with a normal-image fallback if the module cannot load or WebGL is unavailable.
+- **Optional OGL/WebGL liquid preview**, loaded only when the showcase approaches the viewport, with a normal-image fallback if the module cannot load or WebGL is unavailable.
 - **Online project cover imagery and a new six-card visual atlas** selected by project domain; these are illustrative third-party references, not screenshots of Mahi's actual deployments. The only personal portrait is the specified file in `img/Professional Portrait in a Modern Office.png`.
 - **Responsive capability cards, technology chips, education, certifications and internship highlights.**
 - **Light/dark theme switch**, mobile navigation, custom cursor on precise pointers, and reduced-motion handling.

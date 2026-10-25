@@ -262,3 +262,10 @@ test("accent hover states use the theme-aware foreground token", () => {
   assert.ok(css.includes(".liquid-choice:hover, .liquid-choice.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }"), "preview controls use readable hover/active colors");
   assert.ok(html.includes('id="projectGallery" role="region" aria-label="Visual gallery of six software projects"'), "project gallery is a named region");
 });
+
+test("WebGL preview loads lazily near its section instead of during initial page startup", () => {
+  assert.ok(js.includes("const startLiquidPreview = () => {"), "WebGL initialization is wrapped in a starter function");
+  assert.ok(js.includes('{ rootMargin: "320px 0px" }'), "WebGL module waits until the preview is near the viewport");
+  assert.ok(js.includes("liquidLoadObserver.disconnect();"), "WebGL initialization cannot be triggered repeatedly");
+  assert.ok(js.includes("startLiquidPreview();"), "WebGL still initializes when in view or IntersectionObserver is unsupported");
+});

@@ -510,6 +510,10 @@
   }));
 
   if (liquidCanvas && liquidShowcase && !reducedMotion) {
+    let liquidPreviewStarted = false;
+    const startLiquidPreview = () => {
+      if (liquidPreviewStarted) return;
+      liquidPreviewStarted = true;
     import("https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.mjs").then(({ Renderer, Program, Mesh, Triangle, Texture, Vec2 }) => {
       const renderer = new Renderer({ canvas: liquidCanvas, alpha: false, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
       const gl = renderer.gl;
@@ -626,6 +630,18 @@
       // The standard image preview is the intentional no-WebGL fallback.
       liquidShowcase.classList.remove("webgl-ready");
     });
+    };
+    if ("IntersectionObserver" in window) {
+      const liquidLoadObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          liquidLoadObserver.disconnect();
+          startLiquidPreview();
+        }
+      }, { rootMargin: "320px 0px" });
+      liquidLoadObserver.observe(liquidShowcase);
+    } else {
+      startLiquidPreview();
+    }
   }
 
   // Pointer light gently tracks the visitor; this is RAF-throttled and disabled for reduced-motion users.
