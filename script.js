@@ -30,14 +30,14 @@
   // Netlify Image CDN is only available on Netlify-hosted URLs. On local
   // preview and GitHub Pages, use the original local portrait directly.
   if (!window.location.hostname.endsWith(".netlify.app")) {
-    $( "picture.hero-portrait-picture source").forEach(source => {
+    $$("picture.hero-portrait-picture source").forEach(source => {
       const image = source.closest("picture")?.querySelector("img");
       source.remove();
       if (image) image.src = image.getAttribute("src") || image.src;
     });
   }
 
-  $( "img").forEach(image => {
+  $$("img").forEach(image => {
     image.addEventListener("error", () => {
       // Netlify Image CDN sources are used in production, while local preview
       // and GitHub Pages should fall back to the original local image.
