@@ -55,6 +55,7 @@ These are illustrative references, not screenshots from Mahi's actual deployment
 - Vanilla JavaScript (ES modules are loaded dynamically for the optional WebGL enhancement)
 - OGL WebGL (enhancement only; the project preview remains usable without it)
 - Boxicons and Devicon icon fonts
+- Netlify static hosting from the clean `dist/` publish directory, configured in `netlify.toml` to copy the HTML, CSS, JavaScript, metadata, security headers, project artwork, resume, and `.well-known` catalog without publishing development tests or repository documentation.
 - GitHub Pages static hosting
 
 ## Run locally
@@ -80,7 +81,7 @@ Then open http://localhost:8080. A local server is needed for consistent module 
 
 GitHub Actions runs static source checks and Chromium browser tests on pushes to `main` and pull requests. Tests cover local assets and anchors, all 12 repository mappings and gallery images, project filtering, left/right arrow navigation and wraparound, the vertical journey, HackerRank links, theme contrast, mobile layout, modal behavior, image fallback, and contact-form wiring.
 
-The portfolio remains a static GitHub Pages site; Node.js and Playwright are development-only test tools and are not needed by visitors.
+The portfolio remains a static site; Netlify publishes a curated `dist/` directory, while GitHub Pages serves its own static mirror. Node.js and Playwright are development-only test tools and are not needed by visitors.
 
 ## Main files
 
