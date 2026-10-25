@@ -496,6 +496,7 @@
     // Page-wide arrow navigation is active only while the project section is in view.
     // Do not steal arrows from text fields, range/select controls, or an open modal.
     if (!event.defaultPrevented && !projectModal?.classList.contains("is-open") &&
+        !wheelViewport?.contains(event.target) &&
         (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
       const target = event.target;
       const typingTarget = target instanceof HTMLElement &&
