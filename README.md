@@ -120,5 +120,5 @@ That branch contains the original `index.html`, `style.css`, and `script.js` as 
 
 - **Coding workspace:** Unsplash image CDN, `photo-1498050108023-c5249f4df085`, used as a software-development background under the [Unsplash License](https://unsplash.com/license).
 - **AI / ML atmosphere:** Unsplash image CDN, `photo-1677442136019-21780ecad995`, used to evoke AI and neural-network exploration under the [Unsplash License](https://unsplash.com/license).
-- **Space / nebula showcase:** Unsplash image CDN, `photo-1462331940025-496dfbfc7564`, used for the scroll-driven visual section under the [Unsplash License](https://unsplash.com/license).
+- **Scroll-driven space/coding visual:** a colorful laptop-and-code illustration hosted on DEV Community media, used as an external visual reference ([source article](https://dev.to/ashleyd480/how-to-deploy-backend-4b05)). The website does not present it as a screenshot of Mahi’s own project.
 - The personal portrait remains the exact local image specified by the site owner. Pointer movement affects only atmospheric background lighting; the portrait never translates or scales.
