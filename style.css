@@ -1282,3 +1282,210 @@ html[data-theme="dark"] #education {
 @media (max-width: 760px) {
   .project-gallery-card { grid-column: 1; }
 }
+
+
+/* Final color polish — vivid, readable, and restrained across both themes. */
+:root {
+  --neon-green: #16834a;
+  --neon-red: #cf3e5d;
+  --neon-sky: #087eae;
+  --neon-pink: #be397c;
+}
+html[data-theme="dark"] {
+  --neon-green: #4ade80;
+  --neon-red: #fb7185;
+  --neon-sky: #7dd3fc;
+  --neon-pink: #f9a8d4;
+}
+
+/* Keep the scroll-driven visual photographic and colorful rather than monochrome. */
+.expand-frame img {
+  filter: saturate(1.18) contrast(1.06) brightness(.78);
+  transform: scale(1.045);
+  transition: filter .65s ease, transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+.expand-frame:hover img {
+  filter: saturate(1.28) contrast(1.08) brightness(.86);
+  transform: scale(1.075);
+}
+.expand-overlay {
+  background:
+    linear-gradient(90deg, rgba(4, 7, 20, .62), rgba(4, 7, 20, .04) 76%),
+    linear-gradient(0deg, rgba(4, 7, 20, .45), transparent 68%);
+}
+.expand-copy span:first-child {
+  color: var(--neon-sky);
+  text-shadow: 0 0 16px rgba(56,189,248,.12);
+}
+.expand-caption { color: var(--muted); }
+.expand-frame-bottom em {
+  color: #9de9ff;
+  text-shadow: 0 0 22px rgba(56,189,248,.22), 0 0 38px rgba(244,114,182,.10);
+}
+.expand-frame-bottom a:hover {
+  box-shadow: 0 0 26px rgba(244,114,182,.23);
+}
+
+/* Give each technology logo its recognizable hue while keeping the chip itself quiet. */
+.tech-cloud > span {
+  position: relative;
+  isolation: isolate;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--paper-2) 68%, transparent);
+  transition: color .24s, border-color .24s, transform .24s, box-shadow .24s, background .24s;
+}
+.tech-cloud > span::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -7px;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 15% 35%, rgba(52,211,153,.25), transparent 55%),
+    radial-gradient(ellipse at 88% 62%, rgba(56,189,248,.24), transparent 55%),
+    radial-gradient(ellipse at 62% 8%, rgba(244,114,182,.2), transparent 48%);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.tech-cloud > span:hover,
+.tech-cloud > span:focus-within {
+  color: var(--ink);
+  background: var(--paper-2);
+  border-color: color-mix(in srgb, var(--accent) 62%, var(--neon-sky));
+  transform: translateY(-3px);
+  box-shadow: 0 7px 22px rgba(53,35,115,.10);
+}
+.tech-cloud > span:hover::before,
+.tech-cloud > span:focus-within::before { opacity: .85; }
+.tech-cloud i { color: var(--ink); transition: color .2s, filter .2s; }
+.tech-cloud .devicon-python-plain { color: #3673a5; }
+.tech-cloud .devicon-javascript-plain { color: #d6a800; }
+.tech-cloud .devicon-html5-plain { color: #e34f26; }
+.tech-cloud .devicon-css3-plain { color: #2475bd; }
+.tech-cloud .devicon-nodejs-plain { color: #4f8d43; }
+.tech-cloud .devicon-express-original { color: #777777; }
+.tech-cloud .devicon-fastapi-plain { color: #009688; }
+.tech-cloud .devicon-flask-original { color: #6b7280; }
+.tech-cloud .devicon-django-plain { color: #1c7250; }
+.tech-cloud .devicon-streamlit-plain { color: #e64c4c; }
+.tech-cloud .devicon-mysql-plain { color: #00758f; }
+.tech-cloud .devicon-postgresql-plain { color: #3973a9; }
+.tech-cloud .devicon-sqlite-plain { color: #2f80b9; }
+.tech-cloud .devicon-mongodb-plain { color: #249b5b; }
+.tech-cloud .devicon-sqlalchemy-plain { color: #be5b2a; }
+.tech-cloud .devicon-pandas-plain { color: #6852a3; }
+.tech-cloud .devicon-numpy-plain { color: #4775b9; }
+.tech-cloud .devicon-scikitlearn-plain { color: #d77b19; }
+.tech-cloud .devicon-tensorflow-original { color: #ed8a18; }
+.tech-cloud .devicon-opencv-plain { color: #448a50; }
+.tech-cloud .devicon-git-plain { color: #e65a36; }
+.tech-cloud .devicon-github-original { color: var(--ink); }
+.tech-cloud .devicon-docker-plain { color: #2496ed; }
+.tech-cloud .devicon-render-original { color: #6e64f5; }
+.tech-cloud .devicon-vscode-plain { color: #2c9ad1; }
+.tech-cloud .devicon-pytest-plain { color: #2d9e61; }
+.tech-cloud .skill-postman i { color: #f16b3a; }
+.tech-cloud .skill-rest i { color: #0e91b7; }
+.tech-cloud .skill-json i { color: #be8b13; }
+.tech-cloud .skill-jwt i { color: #b35ecb; }
+.tech-cloud .skill-swagger i { color: #58a84c; }
+.tech-cloud .skill-prompt i { color: #db4f91; }
+.tech-cloud .skill-genai i { color: #8a64e8; }
+.tech-cloud .skill-rag i { color: #0f9b8e; }
+.tech-cloud .skill-dsa i { color: #287cc4; }
+.tech-cloud .skill-orm i { color: #d26a33; }
+.tech-cloud .skill-chart i { color: #2789bd; }
+.tech-cloud .skill-ollama i { color: #538b5c; }
+.tech-cloud .skill-whisper i { color: #9d62db; }
+.tech-cloud > span:hover i,
+.tech-cloud > span:focus-within i {
+  filter: drop-shadow(0 0 7px currentColor);
+}
+
+/* Selected-project heading and archive callout have a quiet neon edge, not a hard gradient block. */
+.closer-look-kicker {
+  display: inline-flex;
+  position: relative;
+  width: fit-content;
+  color: var(--neon-sky);
+  text-shadow: 0 0 11px rgba(56,189,248,.16);
+  transition: color .25s, text-shadow .25s;
+}
+.project-detail-copy:hover .closer-look-kicker,
+.closer-look-kicker:focus-visible {
+  color: var(--neon-green);
+  text-shadow: -2px 0 9px rgba(251,113,133,.24), 2px 0 13px rgba(125,211,252,.25);
+}
+.gallery-overline {
+  color: var(--neon-sky);
+  text-shadow: 0 0 12px rgba(56,189,248,.12);
+  transition: color .25s, text-shadow .25s;
+}
+.gallery-heading:hover .gallery-overline {
+  color: var(--neon-green);
+  text-shadow: -2px 0 9px rgba(251,113,133,.23), 2px 0 13px rgba(125,211,252,.26);
+}
+.gallery-heading h3 .different-problems {
+  color: var(--neon-green);
+  text-shadow: 0 0 20px rgba(52,211,153,.11);
+  transition: color .28s, text-shadow .28s;
+}
+.gallery-heading h3 .lets-build {
+  display: inline-block;
+  color: var(--ink-3);
+  transition: color .28s, text-shadow .28s, transform .28s;
+}
+.gallery-heading:hover h3 .different-problems {
+  color: var(--neon-green);
+  text-shadow: -2px 0 10px rgba(251,113,133,.13), 2px 0 16px rgba(56,189,248,.19), 0 0 23px rgba(52,211,153,.16);
+}
+.gallery-heading:hover h3 .lets-build {
+  color: var(--neon-pink);
+  text-shadow: -2px 0 12px rgba(251,113,133,.19), 2px 0 16px rgba(125,211,252,.2), 0 0 20px rgba(244,114,182,.13);
+  transform: translateX(3px);
+}
+.project-detail-copy h3 {
+  transition: color .25s, text-shadow .25s;
+}
+.project-detail-copy:hover h3 {
+  text-shadow: 0 0 18px rgba(56,189,248,.16), 0 0 26px rgba(52,211,153,.12);
+}
+.journey-story-kicker { color: var(--neon-sky); }
+.journey-item-current .journey-story-kicker { color: var(--neon-green); }
+.journey-story h3 { transition: color .25s, text-shadow .25s; }
+.journey-item:hover .journey-story h3 {
+  color: var(--neon-pink);
+  text-shadow: 0 0 17px rgba(244,114,182,.14);
+}
+.project-gallery-media img {
+  filter: saturate(.98) contrast(1.08);
+}
+.project-gallery-card:hover .project-gallery-media img,
+.project-gallery-card:focus-visible .project-gallery-media img {
+  filter: saturate(1.18) contrast(1.08);
+}
+.project-gallery-card:nth-child(1), .project-gallery-card:nth-child(2),
+.project-gallery-card:nth-child(3), .project-gallery-card:nth-child(4),
+.project-gallery-card:nth-child(5), .project-gallery-card:nth-child(6),
+.project-gallery-card:nth-child(7), .project-gallery-card:nth-child(8),
+.project-gallery-card:nth-child(9), .project-gallery-card:nth-child(10),
+.project-gallery-card:nth-child(11), .project-gallery-card:nth-child(12) {
+  scroll-margin-top: 110px;
+}
+@media (max-width: 760px) {
+  .expand-frame { width: 94vw; height: min(62vh, 520px); }
+  .expand-frame img { object-position: 56% center; }
+  .tech-cloud { gap: 7px; }
+  .tech-cloud > span { padding: 8px 10px; font-size: .68rem; }
+  .gallery-heading h3 { line-height: 1.02; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .expand-frame img, .tech-cloud > span, .tech-cloud > span::before,
+  .tech-cloud i, .closer-look-kicker, .gallery-overline,
+  .gallery-heading h3 .different-problems, .gallery-heading h3 .lets-build,
+  .project-detail-copy h3, .journey-story h3 {
+    transition: none !important;
+  }
+  .gallery-heading:hover h3 .lets-build { transform: none; }
+}
