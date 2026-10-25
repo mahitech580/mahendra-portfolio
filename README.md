@@ -2,7 +2,8 @@
 
 Personal portfolio for **Mahendra Sai Kondaveeti (Mahi)**, a 2026 Computer Science graduate exploring software engineering, Python, AI/ML, backend development and expressive web interfaces.
 
-**Live site:** https://mahitech580.github.io/mahendra-portfolio/  
+**Live site:** https://mahendrasai.netlify.app/  
+**GitHub Pages mirror:** https://mahitech580.github.io/mahendra-portfolio/  
 **Resume:** [Mahendra_Resume_Python__.pdf](files/Mahendra_Resume_Python__.pdf)
 
 ## Experience design

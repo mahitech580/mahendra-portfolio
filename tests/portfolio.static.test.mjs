@@ -244,3 +244,14 @@ test("README documents cover attribution and verification commands", () => {
   assert.match(readme, /npm run test:static/);
   assert.match(readme, /npm run test:e2e/);
 });
+
+test("Netlify canonical metadata, lightweight backgrounds and named interactive containers are accessible", () => {
+  assert.ok(html.includes('<link rel="canonical" href="https://mahendrasai.netlify.app/">'), "Netlify is the canonical production URL");
+  assert.ok(html.includes('<meta property="og:url" content="https://mahendrasai.netlify.app/">'), "Open Graph URL matches production");
+  assert.ok(html.includes('class="ticker" role="img" aria-label="Areas of focus:'), "decorative ticker has a valid accessible name");
+  assert.ok(html.includes('class="tech-cloud reveal" role="group" aria-label="Technology list"'), "technology cloud is a labelled group");
+  assert.ok(html.includes('id="wheelViewport" tabindex="0" role="region" aria-label="Interactive 3D project wheel.'), "keyboard project wheel has a named region");
+  assert.ok(html.includes('data-live="https://averis-saas.netlify.app/"'), "Averis points to its current Netlify deployment");
+  assert.ok(css.includes('photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=72'), "coding background uses a lower transfer size");
+  assert.ok(css.includes('photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=72'), "AI background uses a lower transfer size");
+});

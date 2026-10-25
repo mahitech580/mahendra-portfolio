@@ -1,0 +1,23 @@
+# Mahi / Dev
+
+> Personal portfolio of Mahendra Sai Kondaveeti, a 2026 Computer Science graduate focused on software engineering, Python, AI/ML, backend systems, and interactive web experiences.
+
+## Main sections
+- [About](https://mahendrasai.netlify.app/#about): background, interests, and career focus.
+- [Capabilities](https://mahendrasai.netlify.app/#skills): application development, AI/ML, databases, APIs, interfaces, and delivery tools.
+- [Journey](https://mahendrasai.netlify.app/#journey): learning and project-building process.
+- [Selected work](https://mahendrasai.netlify.app/#work): six portfolio projects, source repositories, and available live demos.
+- [Education](https://mahendrasai.netlify.app/#education): education, certifications, and internships.
+- [Contact](https://mahendrasai.netlify.app/#contact): contact form and professional links.
+
+## Featured projects
+- Averis — simulated healthcare-operations workspace; no real patient data or clinical advice. Live: https://averis-saas.netlify.app/ . Source: https://github.com/mahitech580/averis
+- TripPilot — travel-planning web experience. Source: https://github.com/mahitech580/TripPilot-Travel-Planner
+- Deepfake Video Detection — computer-vision project exploring manipulated-video detection. Live: https://mahitech580.github.io/deepfake-video-detection/ . Source: https://github.com/mahitech580/deepfake-video-detection
+- NodeAI Studio — AI-focused developer-workspace project. Source: https://github.com/mahitech580/NodeAI-Studio
+- Crop Yield Prediction — machine-learning application concept. Live: https://crop-yield-predictor-pius.onrender.com . Source: https://github.com/mahitech580/crop-yield-predictor
+- VoxGenAI — generative-AI and voice exploration. Source: https://github.com/mahitech580/VoxGen-AI
+
+## Professional links
+- GitHub: https://github.com/mahitech580
+- LinkedIn: https://www.linkedin.com/in/mahendra-sai-kondaveeti-93438b279/
