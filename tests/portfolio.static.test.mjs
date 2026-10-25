@@ -95,11 +95,11 @@ test("all twelve project cards link to their individual source repositories", ()
 
 test("liquid preview choices match the first six wheel projects and all other projects sync dynamically", () => {
   const cardImages = cards.slice(0, 6).map(card => {
-    const image = card.match(/<img\\b[^>]*>/);
+    const image = card.match(/<img\b[^>]*>/);
     assert.ok(image, "project card image missing");
     return normalized(attr(image[0], "src"));
   });
-  const choices = [...html.matchAll(/<button\\b[^>]*\\bclass="[^"]*\\bliquid-choice\\b[^"]*"[^>]*>/g)]
+  const choices = [...html.matchAll(/<button\b[^>]*\bclass="[^"]*\bliquid-choice\b[^"]*"[^>]*>/g)]
     .map(match => normalized(attr(match[0], "data-image")));
   assert.equal(cards.length, 12);
   assert.equal(choices.length, 6);
@@ -163,7 +163,7 @@ test("small text and keyboard focus on dark sections remain readable", () => {
 });
 
 test("image-first project atlas includes all twelve projects and preserves the requested portrait", () => {
-  const gallery = [...html.matchAll(/<button class="project-gallery-card\\b[^"]*"[^>]*data-project-index="(\\d+)"[^>]*>[\\s\\S]*?<\\/button>/g)];
+  const gallery = [...html.matchAll(/<button class="project-gallery-card\b[^"]*"[^>]*data-project-index="(\d+)"[^>]*>[\s\S]*?<\/button>/g)];
   assert.equal(gallery.length, 12, "expected twelve visual case-file cards");
   assert.deepEqual(gallery.map(match => Number(match[1])), Array.from({ length: 12 }, (_, index) => index));
   for (const name of ["AVERIS", "TripPilot", "Deepfake Video Detection", "NodeAI Studio", "Crop Yield Prediction", "VoxGenAI", "StockFlow", "DataVision Intelligence", "CINEPLAY", "Banking &amp; Financial Transaction Management", "LastMileIQ SQL", "AI Resume Analyzer"]) {
