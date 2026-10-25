@@ -1,0 +1,3 @@
+[build]
+  command = "rm -rf dist && mkdir -p dist && cp index.html style.css script.js robots.txt sitemap.xml llms.txt _headers dist/ && cp -R img files .well-known dist/"
+  publish = "dist"
