@@ -365,10 +365,11 @@ html:not(.js) .preloader { display: none; }
 .project-detail-copy p { max-width: 400px; font-size: .83rem; line-height: 1.85; color: #aab1ab; margin-top: 17px; }
 .project-stack { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
 .project-stack span { padding: 6px 9px; border: 1px solid rgba(255,255,255,.2); color: #b4bcb5; font: .59rem var(--mono); }
-.detail-open { color: var(--paper); border: 0; background: none; padding: 0; margin-top: 30px; }
+.detail-open { color: #f5f7f3; border: 0; background: none; padding: 0; margin-top: 30px; transition: color .2s ease; }
+.detail-open:hover, .detail-open:focus-visible { color: var(--finish-sky, #7dd3fc); }
 .liquid-showcase { position: relative; min-height: 425px; background: #0d0f0e; overflow: hidden; border: 1px solid rgba(255,255,255,.15); isolation: isolate; }
 .liquid-showcase > img, .liquid-showcase > canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.liquid-showcase > img { filter: grayscale(1) brightness(.76); transition: opacity .3s, filter .3s; }
+.liquid-showcase > img { filter: saturate(1.12) brightness(.78) contrast(1.04); transition: opacity .3s, filter .3s; }
 .liquid-showcase.image-failed > img { visibility: hidden; }
 .liquid-showcase.image-failed::before { content: "PROJECT PREVIEW UNAVAILABLE"; position: absolute; z-index: 1; inset: 0; display: grid; place-items: center; padding: 24px; color: rgba(255,255,255,.7); text-align: center; background: radial-gradient(ellipse at 70% 35%,rgba(18,217,208,.16),transparent 45%),linear-gradient(135deg,#171c1a,#090b0a); font: .63rem var(--mono); letter-spacing: .12em; }
 .liquid-showcase > canvas { z-index: 1; opacity: 0; transition: opacity .35s; }
