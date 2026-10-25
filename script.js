@@ -229,6 +229,8 @@
   const selectedStack = $("#selectedProjectStack");
   const openDetailButton = $("#openProjectDetail");
   let selectedIndex = 0;
+  let projectAutoplayTimeout = null;
+  let projectSectionInView = false;
   let dragStartX = null;
   let dragPointerId = null;
   let dragTarget = null;
@@ -273,17 +275,21 @@
           selectedStack.append(span);
         });
       }
-      const activeImage = active.querySelector("img")?.getAttribute("src") || "";
+      const activeImageElement = active.querySelector("img");
+      const activeImage = activeImageElement?.getAttribute("src") || "";
       const previewChoice = liquidChoices.find(choice => choice.dataset.image === activeImage);
       if (previewChoice) {
-        if (!previewChoice.classList.contains("active")) chooseLiquidImage(previewChoice);
-      } else if (activeImage) {
-        // Keep the large preview synchronized even for projects beyond the six quick-pick buttons.
-        liquidChoices.forEach(choice => choice.classList.remove("active"));
-        if (liquidFallback && liquidFallback.getAttribute("src") !== activeImage) {
-          liquidFallback.src = activeImage;
-          if (changeLiquidImage) changeLiquidImage(activeImage);
+        if (!previewChoice.classList.contains("active")) {
+          chooseLiquidImage(previewChoice);
+        } else {
+          // srcset must change with src. Otherwise the browser can keep rendering
+          // the previous project's responsive candidate at 1600px/4K widths.
+          syncLiquidPreviewImage(activeImage, activeImageElement);
         }
+      } else if (activeImage) {
+        // Every one of the twelve wheel projects drives the same large preview.
+        liquidChoices.forEach(choice => choice.classList.remove("active"));
+        syncLiquidPreviewImage(activeImage, activeImageElement);
         if (liquidLabel) liquidLabel.textContent = (active.dataset.title || "PROJECT").toUpperCase() + " / PROJECT " + String(selectedIndex + 1).padStart(2, "0");
       }
     }
@@ -293,6 +299,7 @@
     selectedIndex = (index + wheelCards.length) % wheelCards.length;
     renderWheel();
     if (open) openProjectModal(wheelCards[selectedIndex]);
+    scheduleProjectAutoplay();
   }
   prevButton?.addEventListener("click", () => selectWheelItem(selectedIndex - 1));
   nextButton?.addEventListener("click", () => selectWheelItem(selectedIndex + 1));
@@ -425,8 +432,37 @@
   const modalStack = $("#modalStack");
   const modalLinks = $("#modalLinks");
   let previouslyFocused = null;
+  const workSection = $("#work");
+
+  function stopProjectAutoplay() {
+    if (projectAutoplayTimeout !== null) window.clearTimeout(projectAutoplayTimeout);
+    projectAutoplayTimeout = null;
+  }
+  function scheduleProjectAutoplay() {
+    stopProjectAutoplay();
+    if (reducedMotion || !workSection || !projectSectionInView || document.hidden ||
+        projectModal?.classList.contains("is-open") || wheelCards.length < 2) return;
+    projectAutoplayTimeout = window.setTimeout(() => {
+      projectAutoplayTimeout = null;
+      selectWheelItem(selectedIndex + 1);
+    }, 5000);
+  }
+  if (workSection && "IntersectionObserver" in window) {
+    const projectAutoplayObserver = new IntersectionObserver(entries => {
+      projectSectionInView = entries.some(entry => entry.isIntersecting);
+      if (projectSectionInView) scheduleProjectAutoplay();
+      else stopProjectAutoplay();
+    }, { threshold: 0.01 });
+    projectAutoplayObserver.observe(workSection);
+  } else if (workSection) {
+    projectSectionInView = true;
+    scheduleProjectAutoplay();
+  }
+  document.addEventListener("visibilitychange", scheduleProjectAutoplay);
+
   function openProjectModal(card) {
     if (!projectModal || !card) return;
+    stopProjectAutoplay();
     previouslyFocused = document.activeElement;
     if (modalTitle) modalTitle.textContent = card.dataset.title || "Project";
     if (modalCategory) modalCategory.textContent = card.dataset.category || "PROJECT / DETAIL";
@@ -488,6 +524,7 @@
     projectModal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     previouslyFocused?.focus?.();
+    scheduleProjectAutoplay();
   }
   modalClose?.addEventListener("click", closeProjectModal);
   $$("[data-close-modal]", projectModal || document).forEach(el => el.addEventListener("click", closeProjectModal));
@@ -518,14 +555,32 @@
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
 
-  // Liquid preview: native image fallback remains visible if WebGL/CDN is unavailable.
+  // Liquid preview: keep src and responsive srcset from the same project in sync.
+  function syncLiquidPreviewImage(imagePath, sourceImage = null) {
+    if (!liquidFallback || !imagePath) return;
+    const sourceCard = wheelCards.find(card => card.querySelector("img")?.getAttribute("src") === imagePath);
+    const image = sourceImage || sourceCard?.querySelector("img");
+    const nextSrcset = image?.getAttribute("srcset") || "";
+    const nextSizes = image?.getAttribute("sizes") || "";
+    const candidatesChanged = liquidFallback.getAttribute("srcset") !== nextSrcset ||
+      liquidFallback.getAttribute("sizes") !== nextSizes;
+    const pathChanged = liquidFallback.getAttribute("src") !== imagePath;
+    if (nextSrcset) liquidFallback.setAttribute("srcset", nextSrcset);
+    else liquidFallback.removeAttribute("srcset");
+    if (nextSizes) liquidFallback.setAttribute("sizes", nextSizes);
+    else liquidFallback.removeAttribute("sizes");
+    if (pathChanged) liquidFallback.setAttribute("src", imagePath);
+    if (sourceCard?.dataset.title) {
+      liquidFallback.alt = "Illustrative project preview for " + sourceCard.dataset.title;
+    }
+    if ((pathChanged || candidatesChanged) && changeLiquidImage) changeLiquidImage(imagePath);
+  }
   function chooseLiquidImage(button) {
     const imagePath = button?.dataset.image;
     if (!imagePath) return;
     liquidChoices.forEach(choice => choice.classList.toggle("active", choice === button));
-    if (liquidFallback && liquidFallback.getAttribute("src") !== imagePath) liquidFallback.src = imagePath;
+    syncLiquidPreviewImage(imagePath);
     if (liquidLabel) liquidLabel.textContent = button.dataset.label || "PROJECT PREVIEW";
-    if (changeLiquidImage) changeLiquidImage(imagePath);
   }
   liquidChoices.forEach(button => button.addEventListener("click", () => {
     chooseLiquidImage(button);
@@ -534,6 +589,7 @@
       selectedIndex = linkedIndex;
       renderWheel();
     }
+    scheduleProjectAutoplay();
   }));
 
   if (liquidCanvas && liquidShowcase && !reducedMotion) {
